@@ -17,7 +17,9 @@ This programming topic includes the following articles:
      [关于虚拟内存系统](About the Virtual Memory System.md)介绍了OS X和iOS的虚拟内存系统的术语和高级概述。
 
 * [Tips for Allocating Memory](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-CJBCFDGA) describes the best techniques for allocating, initializing, and copying memory. It also describes the proper ways to respond to low-memory notifications in iOS.
+
       [开辟内存小贴士]()描述了分配、初始化和复制内存的最佳技术。它还描述了在iOS中响应低内存通知的正确方法。
+      
 * [Caching and Purgeable Memory]() discusses the benefits of caching, and how to avoid some of the problems that can arise from implementing caches. It also details the advantages of implementing purgeable memory into a caching system and how to successfully implement this beneficial technology.
 
     [缓存和可清除内存]()讨论缓存的好处，以及如何避免实现缓存可能产生的一些问题。它还描述了实现可擦除内存到一个缓存系统中的优势，和如何成功实现这一有益的技术。
