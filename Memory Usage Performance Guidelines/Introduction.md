@@ -1,4 +1,6 @@
 #Introduction 介绍
+[原文](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/ManagingMemory.html#//apple_ref/doc/uid/10000160-SW1)
+
 Memory is an important system resource that all programs use. Programs must be loaded into memory before they can run and, while running, they allocate additional memory (both explicitly and implicitly) to store and manipulate program-level data. Making room in memory for a program’s code and data requires time and resources and therefore affect the overall performance of the system. Although you cannot avoid using memory altogether, there are ways to minimize the impact your memory usage has on the rest of the system.
 
 内存是所有程序使用的重要资源。程序在运行之前必须被加载进内存，并且在运行中，它们开辟额外的内存(显式地或隐式地)来存储和操作程序级别的数据。在内存中为程序的代码和数据腾出空间需要时间和资源，因此影响系统的整体性能。尽管你不能完全避免使用内存，但是有一些方法可以最大限度地减少内存使用对系统其余部分的影响。
@@ -12,7 +14,7 @@ This programming topic includes the following articles:
 
 * [About the Virtual Memory System](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-BCICIHAB) introduces the terminology and provides a high-level overview of the virtual memory systems of OS X and iOS.
 
-     [关于虚拟内存系统]()介绍了OS X和iOS的虚拟内存系统的术语和高级概述。
+     [关于虚拟内存系统](About the Virtual Memory System.md)介绍了OS X和iOS的虚拟内存系统的术语和高级概述。
 
 * [Tips for Allocating Memory](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-CJBCFDGA) describes the best techniques for allocating, initializing, and copying memory. It also describes the proper ways to respond to low-memory notifications in iOS.
       [开辟内存小贴士]()描述了分配、初始化和复制内存的最佳技术。它还描述了在iOS中响应低内存通知的正确方法。
