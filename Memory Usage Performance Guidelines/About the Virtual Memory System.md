@@ -48,6 +48,16 @@ Paging of any kind, and disk thrashing in particular, affects performance negati
 ## Details of the Virtual Memory System 虚拟内存系统的细节
 The logical address space of a process consists of mapped regions of memory. Each mapped memory region contains a known number of virtual memory pages. Each region has specific attributes controlling such things as inheritance (portions of the region may be mapped from “parent” regions), write-protection, and whether it is wired (that is, it cannot be paged out). Because regions contain a known number of pages, they are page-aligned, meaning the starting address of the region is also the starting address of a page and the ending address also defines the end of a page.
 
+进程的逻辑地址空间由映射的内存区域组成。每个映射的内存区域包含已知数量的虚拟内存页。每个区域具有特定的属性，控制诸如继承(区域的部分可能从“父”区域映射)，写保护，和它是否被连线(即，它不能被页出[page out])。因为区域包含已知数量的页面，他们是页面对齐的，意味着区域的起始地址也是一个页面的起始地址，并且结束地址也定义了一个页面的结束地址。
+
+The kernel associates a VM object with each region of the logical address space. The kernel uses VM objects to track and manage the resident and nonresident pages of the associated regions. A region can map to part of the backing store or to a memory-mapped file in the file system. Each VM object contains a map that associates regions with either the default pager or the vnode pager. The default pager is a system manager that manages the nonresident virtual memory pages in the backing store and fetches those pages when requested. The vnode pager implements memory-mapped file access. The vnode pager uses the paging mechanism to provide a window directly into a file. This mechanism lets you read and write portions of the file as if they were located in memory.
+
+内核将一个VM对象和每个逻辑地址空间的每个区域相关联。
+
+In addition to mapping regions to either the default or vnode pager, a VM object may also map regions to another VM object. The kernel uses this self referencing technique to implement copy-on-write regions. Copy-on-write regions allow different processes (or multiple blocks of code within a process) to share a page as long as none of them write to that page. When a process attempts to write to the page, a copy of the page is created in the logical address space of the process doing the writing. From that point forward, the writing process maintains its own separate copy of the page, which it can write to at any time. Copy-on-write regions let the system share large quantities of data efficiently in memory while still letting processes manipulate those pages directly (and safely) if needed. These types of regions are most commonly used for the data pages loaded from system frameworks.
+
+Each VM object contains several fields, as shown in Table 1.
+
 
 
 
