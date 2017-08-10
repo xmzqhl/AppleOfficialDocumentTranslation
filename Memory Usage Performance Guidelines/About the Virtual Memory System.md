@@ -1,5 +1,4 @@
-#About the Virtual Memory System
-#关于虚拟内存系统
+# About the Virtual Memory System 关于虚拟内存系统
 [原文](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-BCICIHAB)
 
 Efficient memory management is an important aspect of writing high performance code in both OS X and iOS. Minimizing memory usage not only decreases your application’s memory footprint, it can also reduce the amount of CPU time it consumes. In order to properly tune your code though, you need to understand something about how the underlying system manages memory.
@@ -26,7 +25,7 @@ The following sections introduce terminology and provide a brief overview of the
 
 以下部分介绍在OS X和iOS中的虚拟内存系统的术语和简要概述。 要获得虚拟内存系统如何工作的详细信息，请参阅[内核编程指南](https://developer.apple.com/library/content/documentation/Darwin/Conceptual/KernelProgramming/About/About.html#//apple_ref/doc/uid/TP30000905)
 
-##About Virtual Memory  关于虚拟内存
+## About Virtual Memory  关于虚拟内存
 Virtual memory allows an operating system to escape the limitations of physical RAM. The virtual memory manager creates a logical address space (or “virtual” address space) for each process and divides it up into uniformly-sized chunks of memory called pages. The processor and its memory management unit (MMU) maintain a page table to map pages in the program’s logical address space to hardware addresses in the computer’s RAM. When a program’s code accesses an address in memory, the MMU uses the page table to translate the specified logical address into the actual hardware memory address. This translation occurs automatically and is transparent to the running application.
 
 虚拟内存允许操作系统摆脱物理RAM的限制。虚拟内存管理器为每个进程创建一个逻辑地址空间(或“虚拟”地址空间)，并把它分割为统一大小的内存块，成为页。处理器和他的内存管理单元(MMU)维护一个页表(page table)来把程序的逻辑地址空间的页映射到计算机RAM的硬件地址。当一个程序的代码访问内存的一个地址时，MMU使用这个页表来翻译指定的逻辑地址到实际的硬件内存地址。这种翻译是自动发生的，对运行的程序来说是透明的。
@@ -46,7 +45,7 @@ In OS X and in earlier versions of iOS, the size of a page is 4 kilobytes. In la
 Paging of any kind, and disk thrashing in particular, affects performance negatively because it forces the system to spend a lot of time reading and writing to disk. Reading a page in from the backing store takes a significant amount of time and is much slower than reading directly from RAM. If the system has to write a page to disk before it can read another page from disk, the performance impact is even worse.
 
 任何类型的分页，特别是磁盘震颤，会对性能产生负面影响，因为它会迫使系统花费大量时间来读写硬盘。从备份存储中读取一个页需要大量的时间，比直接从RAM读取的速度慢得多。如果系统必须在它可以从磁盘读取另一个页之前向磁盘写一个页，则性能影响甚至更糟。
-##Details of the Virtual Memory System 虚拟内存系统的细节
+## Details of the Virtual Memory System 虚拟内存系统的细节
 The logical address space of a process consists of mapped regions of memory. Each mapped memory region contains a known number of virtual memory pages. Each region has specific attributes controlling such things as inheritance (portions of the region may be mapped from “parent” regions), write-protection, and whether it is wired (that is, it cannot be paged out). Because regions contain a known number of pages, they are page-aligned, meaning the starting address of the region is also the starting address of a page and the ending address also defines the end of a page.
 
 
