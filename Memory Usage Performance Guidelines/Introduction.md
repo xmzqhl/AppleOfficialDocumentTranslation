@@ -1,4 +1,4 @@
-#Introduction 介绍
+# Introduction 介绍
 [原文](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/ManagingMemory.html#//apple_ref/doc/uid/10000160-SW1)
 
 Memory is an important system resource that all programs use. Programs must be loaded into memory before they can run and, while running, they allocate additional memory (both explicitly and implicitly) to store and manipulate program-level data. Making room in memory for a program’s code and data requires time and resources and therefore affect the overall performance of the system. Although you cannot avoid using memory altogether, there are ways to minimize the impact your memory usage has on the rest of the system.
@@ -9,7 +9,7 @@ This document provides background information about the memory systems of OS X a
 
 本文档提供有关OS X和iOS的内存系统的背景信息，以及如何有效的使用它们。你可以使用此信息通过在正确的时间开辟适量的内存，来调整程序的内存使用。本文档还提供了有关如何在程序中检测与内存相关的性能问题的小贴士。
 
-##Organization of This Document 本文档的结构
+## Organization of This Document 本文档的结构
 This programming topic includes the following articles:
 
 * [About the Virtual Memory System](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-BCICIHAB) introduces the terminology and provides a high-level overview of the virtual memory systems of OS X and iOS.
