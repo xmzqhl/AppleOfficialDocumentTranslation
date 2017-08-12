@@ -116,9 +116,99 @@ As you can see, every thread, process, and library contributes to the resident f
 
 Wired data structures are also associated with the physical page and map tables used to store virtual-memory mapping information, Both of these entities scale with the amount of available physical memory. Consequently, when you add memory to a system, the amount of wired memory increases even if nothing else changes. When a computer is first booted into the Finder, with no other applications running, wired memory can consume approximately 14 megabytes of a 64 megabyte system and 17 megabytes of a 128 megabyte system.
 
-联动数据结构
+联动数据结构还与物理页和用于存储虚拟内存映射信息的映射表相关联。这两个实体都与可用物理内存的数量成比例。因此，当您向一个系统添加内存时，即使没有其他更改，联动内存也会增加。当一个计算机首次启动到Finder时，没有其它应用程序运行，联动内存在64MB系统中可以大约消耗14MB 和 在128MB系统中大约消耗17MB。
 
 Wired memory pages are not immediately moved back to the free list when they become invalid. Instead they are “garbage collected” when the free-page count falls below the threshold that triggers page out events.
+
+联动内存页并不是在它们变为无效时立即返回到空闲列表。相反，当空闲页的数量低于触发页出事件的阈值时，它们是垃圾回收的。
+## Page Lists in the Kernel内核中的页面列表
+The kernel maintains and queries three system-wide lists of physical memory pages:
+
+内核维护和查询物理内存页的三个系统范围的列表：
+
+* The active list contains pages that are currently mapped into memory and have been recently accessed.
+
+    活动的列表包含当前映射到内存并最近被访问过的页面。
+
+* The inactive list contains pages that are currently resident in physical memory but have not been accessed recently. These pages contain valid data but may be removed from memory at any time.
+
+   非活动列表包含当前驻留在物理内存但最近未被访问过的页面。这些页面包含有效数据，但可能随时从内存中删除。
+
+* The free list contains pages of physical memory that are not associated with any address space of VM object. These pages are available for immediate use by any process that needs them.
+
+   空闲列表包含与VM对象的任何地址空间不相关联的物理内存页面。这些页面可供任何需要他们的进程立即使用。
+   
+When the number of pages on the free list falls below a threshold (determined by the size of physical memory), the pager attempts to balance the queues. It does this by pulling pages from the inactive list. If a page has been accessed recently, it is reactivated and placed on the end of the active list. In OS X, if an inactive page contains data that has not been written to the backing store recently, its contents must be paged out to disk before it can be placed on the free list. (In iOS, modified but inactive pages must remain in memory and be cleaned up by the application that owns them.) If an inactive page has not been modified and is not permanently resident (wired), it is stolen (any current virtual mappings to it are destroyed) and added to the free list. Once the free list size exceeds the target threshold, the pager rests.
+
+当空闲列表页的数量降低到一定的阈值(由物理内存的大小决定)，分页器试图平衡队列。它通过从非活动列表拉取页面来实现。如果一个页面最近被访问了，它将被重新激活并放在活动列表的末尾。在OS X中，如果一个非活动页面包含最近尚未写入到备份存储的数据，则它的内容必须在被放到空闲列表之前页出到磁盘。(在iOS中，被修改但非活动的页面必须保留在内存中，并由拥有它们的应用程序进行清理。)如果一个非活动页面还没有被修改，并且不是永久驻留(联动)，则它将被偷取(任何当前的虚拟映射都将被销毁)并被添加到空闲列表。一旦空闲列表的大小超过目标阈值， 分页器就会休眠。
+
+The kernel moves pages from the active list to the inactive list if they are not accessed; it moves pages from the inactive list to the active list on a soft fault (see [Paging In Process](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-99598)). When virtual pages are swapped out, the associated physical pages are placed in the free list. Also, when processes explicitly free memory, the kernel moves the affected pages to the free list.
+
+如果页面不被访问，内核将它们从活动列表移动到非活动列表；它将页面从非活动列表移动到一个软故障上的活动列表(参阅[页入处理](#paginginprocess))。当虚拟页面被换出时，相关联的物理页面被放到空闲列表中。此外，当进程显式释放内存时，内核将受影响的页面移动到空闲列表。
+## Paging Out Process 页出处理
+In OS X, when the number of pages in the free list dips below a computed threshold, the kernel reclaims physical pages for the free list by swapping inactive pages out of memory. To do this, the kernel iterates all resident pages in the active and inactive lists, performing the following steps:
+
+在OS X中，当空闲列表的页数低于计算的一个阈值的时候，内核通过将非活动页面交换出内存来回收空闲列表的物理页。为此，内核迭代所有在活动和非活动列表中的常驻页面，执行以下步骤:
+
+1. If a page in the active list is not recently touched, it is moved to the inactive list.
+
+ 	如果一个活动列表中的页面最近未被访问，它将被移动到非活动列表
+ 	
+2. If a page in the inactive list is not recently touched, the kernel finds the page’s VM object.
+
+	如果在非活动列表中的一个页面最近没有被访问，内核将找到该页面的VM对象。
+ 
+3. If the VM object has never been paged before, the kernel calls an initialization routine that creates and assigns a default pager object.
+
+	如果该VM对象之前从未被分页，内核将调用一个初始化例程来创建和指定一个默认分页器对象。
+
+4. The VM object’s default pager attempts to write the page out to the backing store.
+
+	该VM对象的默认分页器尝试将该页写出到备份存储。
+
+5. If the pager succeeds, the kernel frees the physical memory occupied by the page and moves the page from the inactive to the free list.
+
+	如果该分页器成功了，内核释放该页面已占用的物理内存，并将该页从非活动列表移动到空闲列表。
+
+> Note: In iOS, the kernel does not write pages out to a backing store. When the amount of free memory dips below the computed threshold, the kernel flushes pages that are inactive and unmodified and may also ask the running application to free up memory directly. For more information on responding to these notifications, see [Responding to Low-Memory Warnings in iOS](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-SW1).
+> 
+> 注意：在iOS中，内核不会将页面写出到备份存储。当可用内存下降到计算出的阈值以下时，内核将刷新非活动和未修改的页面，并且还可能直接要求正在运行的应用程序来释放内存。有关响应这些通知的更多信息，请参阅[在iOS中响应低内存警告]()
+
+## <a name="paginginprocess"></a>Paging In Process 页入处理
+The final phase of virtual memory management moves pages into physical memory, either from the backing store or from the file containing the page data. A memory access fault initiates the page-in process. A memory access fault occurs when code tries to access data at a virtual address that is not mapped to physical memory. There are two kinds of faults:
+
+* A soft fault occurs when the page of the referenced address is resident in physical memory but is currently not mapped into the address space of this process.
+* A hard fault occurs when the page of the referenced address is not in physical memory but is swapped out to backing store (or is available from a mapped file). This is what is typically known as a page fault.
+
+When any type of fault occurs, the kernel locates the map entry and VM object for the accessed region. The kernel then goes through the VM object’s list of resident pages. If the desired page is in the list of resident pages, the kernel generates a soft fault. If the page is not in the list of resident pages, it generates a hard fault.
+
+For soft faults, the kernel maps the physical memory containing the pages to the virtual address space of the process. The kernel then marks the specific page as active. If the fault involved a write operation, the page is also marked as modified so that it will be written to backing store if it needs to be freed later.
+
+For hard faults, the VM object’s pager finds the page in the backing store or from the file on disk, depending on the type of pager. After making the appropriate adjustments to the map information, the pager moves the page into physical memory and places the page on the active list. As with a soft fault, if the fault involved a write operation, the page is marked as modified.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
