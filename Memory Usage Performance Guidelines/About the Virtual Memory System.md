@@ -11,7 +11,7 @@ OS X和iOS都包含了一个你无法关闭的完全整合的虚拟内存系统�
 
 To give processes access to their entire 4 gigabyte or 18 exabyte address space, OS X uses the hard disk to hold data that is not currently in use. As memory gets full, sections of memory that are not being used are written to disk to make room for data that is needed now. The portion of the disk that stores the unused data is known as the backing store because it provides the backup storage for main memory.
 
-为了使进程访问他们的整个4GB或18EB地址空间，OS X使用硬盘来保存当前未使用的数据。当内存已满时，未使用的内存区域将写入磁盘，为现在需要使用的数据腾出空间。存储未使用数据的磁盘部分称为后备存储器。因为它为主存提供了备份存储。
+为了使进程访问他们的整个4GB或18EB地址空间，OS X使用硬盘来保存当前未使用的数据。当内存已满时，未使用的内存区域将写入磁盘，为现在需要使用的数据腾出空间。存储未使用数据的磁盘部分称为**后备存储器(backing store)**。因为它为主存提供了备份存储。
 
 Although OS X supports a backing store, iOS does not. In iPhone applications, read-only data that is already on the disk (such as code pages) is simply removed from memory and reloaded from disk as needed. Writable data is never removed from memory by the operating system. Instead, if the amount of free memory drops below a certain threshold, the system asks the running applications to free up memory voluntarily to make room for new data. Applications that fail to free up enough memory are terminated.
 
@@ -19,7 +19,7 @@ Although OS X supports a backing store, iOS does not. In iPhone applications, re
 
 >Note: Unlike most UNIX-based operating systems, OS X does not use a preallocated disk partition for the backing store. Instead, it uses all of the available space on the machine’s boot partition.
 >
->注意：与大多数基于UNIX的操作系统不同，OS X不会为备份存储使用一个预先分配的磁盘分区。而是使用机器上引导分区的所有可用空间。
+>注意：与大多数基于UNIX的操作系统不同，OS X不会为后备存储器使用一个预先分配的磁盘分区。而是使用机器上引导分区的所有可用空间。
 
 The following sections introduce terminology and provide a brief overview of the virtual memory system used in both OS X and iOS. For more detailed information on how the virtual memory system works, see [Kernel Programming Guide](https://developer.apple.com/library/content/documentation/Darwin/Conceptual/KernelProgramming/About/About.html#//apple_ref/doc/uid/TP30000905).
 
@@ -36,7 +36,7 @@ As far as a program is concerned, addresses in its logical address space are alw
 
 If there are no free pages available in physical memory, the handler must first release an existing page to make room for the new page. How the system release pages depends on the platform. In OS X, the virtual memory system often writes pages to the backing store. The backing store is a disk-based repository containing a copy of the memory pages used by a given process. Moving data from physical memory to the backing store is called paging out (or “swapping out”); moving data from the backing store back in to physical memory is called paging in (or “swapping in”). In iOS, there is no backing store and so pages are are never paged out to disk, but read-only pages are still be paged in from disk as needed
 
-如果在物理内存中没有可用的空间页，处理程序必须先释放一个已存在的页来给新数据腾出空间。系统如何释放页取决于系统平台。在OS X中，虚拟内存系统经常把页写到备份存储。备份存储是一个基于磁盘的存储仓库，其中包含给定进程使用的内存页的副本。把数据从物理内存移动到备份存储叫做页出(或者“换出”)；从备份存储把数据移动到物理内存叫做页入(或“换入”)。在iOS中，没有备份存储，所以页从来不会交换到磁盘中去，但是只读页仍然可以在需要时从磁盘“页入”。
+如果在物理内存中没有可用的空间页，处理程序必须先释放一个已存在的页来给新数据腾出空间。系统如何释放页取决于系统平台。在OS X中，虚拟内存系统经常把页写到后备存储器。后备存储器是一个基于磁盘的存储仓库，其中包含给定进程使用的内存页的副本。把数据从物理内存移动到后备存储器叫做页出(或者“换出”)；从后备存储器把数据移动到物理内存叫做页入(或“换入”)。在iOS中，没有后备存储器，所以页从来不会交换到磁盘中去，但是只读页仍然可以在需要时从磁盘“页入”。
 
 In OS X and in earlier versions of iOS, the size of a page is 4 kilobytes. In later versions of iOS, A7- and A8-based systems expose 16-kilobyte pages to the 64-bit userspace backed by 4-kilobyte physical pages, while A9 systems expose 16-kilobyte pages backed by 16-kilobyte physical pages. These sizes determine how many kilobytes the system reads from disk when a page fault occurs. Disk thrashing can occur when the system spends a disproportionate amount of time handling page faults and reading and writing pages, rather than executing code for a program.
 
@@ -44,7 +44,7 @@ In OS X and in earlier versions of iOS, the size of a page is 4 kilobytes. In la
 
 Paging of any kind, and disk thrashing in particular, affects performance negatively because it forces the system to spend a lot of time reading and writing to disk. Reading a page in from the backing store takes a significant amount of time and is much slower than reading directly from RAM. If the system has to write a page to disk before it can read another page from disk, the performance impact is even worse.
 
-任何类型的分页，特别是磁盘震颤，会对性能产生负面影响，因为它会迫使系统花费大量时间来读写硬盘。从备份存储中读取一个页需要大量的时间，比直接从RAM读取的速度慢得多。如果系统必须在它可以从磁盘读取另一个页之前向磁盘写一个页，则性能影响甚至更糟。
+任何类型的分页，特别是磁盘震颤，会对性能产生负面影响，因为它会迫使系统花费大量时间来读写硬盘。从后备存储器中读取一个页需要大量的时间，比直接从RAM读取的速度慢得多。如果系统必须在它可以从磁盘读取另一个页之前向磁盘写一个页，则性能影响甚至更糟。
 ## Details of the Virtual Memory System 虚拟内存系统的细节
 The logical address space of a process consists of mapped regions of memory. Each mapped memory region contains a known number of virtual memory pages. Each region has specific attributes controlling such things as inheritance (portions of the region may be mapped from “parent” regions), write-protection, and whether it is wired (that is, it cannot be paged out). Because regions contain a known number of pages, they are page-aligned, meaning the starting address of the region is also the starting address of a page and the ending address also defines the end of a page.
 
@@ -52,7 +52,7 @@ The logical address space of a process consists of mapped regions of memory. Eac
 
 The kernel associates a VM object with each region of the logical address space. The kernel uses VM objects to track and manage the resident and nonresident pages of the associated regions. A region can map to part of the backing store or to a memory-mapped file in the file system. Each VM object contains a map that associates regions with either the default pager or the vnode pager. The default pager is a system manager that manages the nonresident virtual memory pages in the backing store and fetches those pages when requested. The vnode pager implements memory-mapped file access. The vnode pager uses the paging mechanism to provide a window directly into a file. This mechanism lets you read and write portions of the file as if they were located in memory.
 
-内核将一个VM对象和逻辑地址空间的每个区域相关联。内核使用VM对象追踪和管理与它关联区域的驻留和非驻留页。一个区域可以映射到备份存储的一部分或者在文件系统中的一个内存映射文件。每个VM对象都包含一个映射， 它将区域与**默认分页器(default pager)**或**vnode分页器(vnode pager)**相关联。默认分页器是一个系统管理者， 用于管理在备份存储中的非驻留虚拟内存页，并在请求时提取那些页面。vnode分页器实现内存映射文件访问。vnode分页器使用分页机制提供直接面向文件的窗口。这种机制可以让您读取和写入文件的一部分，就像它们在内存中一样。
+内核将一个VM对象和逻辑地址空间的每个区域相关联。内核使用VM对象追踪和管理与它关联区域的驻留和非驻留页。一个区域可以映射到后备存储器的一部分或者在文件系统中的一个内存映射文件。每个VM对象都包含一个映射， 它将区域与**默认分页器(default pager)**或**vnode分页器(vnode pager)**相关联。默认分页器是一个系统管理者， 用于管理在后备存储器中的非驻留虚拟内存页，并在请求时提取那些页面。vnode分页器实现内存映射文件访问。vnode分页器使用分页机制提供直接面向文件的窗口。这种机制可以让您读取和写入文件的一部分，就像它们在内存中一样。
 
 In addition to mapping regions to either the default or vnode pager, a VM object may also map regions to another VM object. The kernel uses this self referencing technique to implement copy-on-write regions. Copy-on-write regions allow different processes (or multiple blocks of code within a process) to share a page as long as none of them write to that page. When a process attempts to write to the page, a copy of the page is created in the logical address space of the process doing the writing. From that point forward, the writing process maintains its own separate copy of the page, which it can write to at any time. Copy-on-write regions let the system share large quantities of data efficiently in memory while still letting processes manipulate those pages directly (and safely) if needed. These types of regions are most commonly used for the data pages loaded from system frameworks.
 
@@ -70,7 +70,7 @@ Field 字段  |Description 描述 |
 :---|:--------------------------|
  Resident pages|A list of the pages of this region that are currently resident in physical memory.  当前驻留在物理内存中的该区域的页面列表。 |
  Size | The size of the region, in bytes. 区域的大小,以字节为单位|
- Pager|The pager responsible for tracking and handling the pages of this region in backing store.负责追踪和处理在备份存储中这个区域的页的分页器|
+ Pager|The pager responsible for tracking and handling the pages of this region in backing store.负责追踪和处理在后备存储器中这个区域的页的分页器|
  Shadow|Used for copy-on-write optimizations.用于写时复制优化|
  Copy|Used for copy-on-write optimizations.用于写时复制优化|
  Attributes|Flags indicating the state of various implementation details.表示各种实现细节状态的标记|
@@ -140,7 +140,7 @@ The kernel maintains and queries three system-wide lists of physical memory page
    
 When the number of pages on the free list falls below a threshold (determined by the size of physical memory), the pager attempts to balance the queues. It does this by pulling pages from the inactive list. If a page has been accessed recently, it is reactivated and placed on the end of the active list. In OS X, if an inactive page contains data that has not been written to the backing store recently, its contents must be paged out to disk before it can be placed on the free list. (In iOS, modified but inactive pages must remain in memory and be cleaned up by the application that owns them.) If an inactive page has not been modified and is not permanently resident (wired), it is stolen (any current virtual mappings to it are destroyed) and added to the free list. Once the free list size exceeds the target threshold, the pager rests.
 
-当空闲列表页的数量降低到一定的阈值(由物理内存的大小决定)，分页器试图平衡队列。它通过从非活动列表拉取页面来实现。如果一个页面最近被访问了，它将被重新激活并放在活动列表的末尾。在OS X中，如果一个非活动页面包含最近尚未写入到备份存储的数据，则它的内容必须在被放到空闲列表之前页出到磁盘。(在iOS中，被修改但非活动的页面必须保留在内存中，并由拥有它们的应用程序进行清理。)如果一个非活动页面还没有被修改，并且不是永久驻留(联动)，则它将被偷取(任何当前的虚拟映射都将被销毁)并被添加到空闲列表。一旦空闲列表的大小超过目标阈值， 分页器就会休眠。
+当空闲列表页的数量降低到一定的阈值(由物理内存的大小决定)，**分页器(pager)**试图平衡队列。它通过从非活动列表拉取页面来实现。如果一个页面最近被访问了，它将被重新激活并放在活动列表的末尾。在OS X中，如果一个非活动页面包含最近尚未写入到后备存储器的数据，则它的内容必须在被放到空闲列表之前页出到磁盘。(在iOS中，被修改但非活动的页面必须保留在内存中，并由拥有它们的应用程序进行清理。)如果一个非活动页面还没有被修改，并且不是永久驻留(联动)，则它将被偷取(任何当前的虚拟映射都将被销毁)并被添加到空闲列表。一旦空闲列表的大小超过目标阈值， 分页器就会休眠。
 
 The kernel moves pages from the active list to the inactive list if they are not accessed; it moves pages from the inactive list to the active list on a soft fault (see [Paging In Process](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-99598)). When virtual pages are swapped out, the associated physical pages are placed in the free list. Also, when processes explicitly free memory, the kernel moves the affected pages to the free list.
 
@@ -164,7 +164,7 @@ In OS X, when the number of pages in the free list dips below a computed thresho
 
 4. The VM object’s default pager attempts to write the page out to the backing store.
 
-	该VM对象的默认分页器尝试将该页写出到备份存储。
+	该VM对象的默认分页器尝试将该页写出到后备存储器。
 
 5. If the pager succeeds, the kernel frees the physical memory occupied by the page and moves the page from the inactive to the free list.
 
@@ -172,44 +172,29 @@ In OS X, when the number of pages in the free list dips below a computed thresho
 
 > Note: In iOS, the kernel does not write pages out to a backing store. When the amount of free memory dips below the computed threshold, the kernel flushes pages that are inactive and unmodified and may also ask the running application to free up memory directly. For more information on responding to these notifications, see [Responding to Low-Memory Warnings in iOS](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-SW1).
 > 
-> 注意：在iOS中，内核不会将页面写出到备份存储。当可用内存下降到计算出的阈值以下时，内核将刷新非活动和未修改的页面，并且还可能直接要求正在运行的应用程序来释放内存。有关响应这些通知的更多信息，请参阅[在iOS中响应低内存警告]()
+> 注意：在iOS中，内核不会将页面写出到后备存储器。当可用内存下降到计算出的阈值以下时，内核将刷新非活动和未修改的页面，并且还可能直接要求正在运行的应用程序来释放内存。有关响应这些通知的更多信息，请参阅[在iOS中响应低内存警告]()
 
 ## <a name="paginginprocess"></a>Paging In Process 页入处理
 The final phase of virtual memory management moves pages into physical memory, either from the backing store or from the file containing the page data. A memory access fault initiates the page-in process. A memory access fault occurs when code tries to access data at a virtual address that is not mapped to physical memory. There are two kinds of faults:
 
+虚拟内存管理的最终阶段将页面从后备存储器或从包含页面数据的文件中移动到物理内存中。内存访问故障启动页入程序。当代码尝试访问未映射到物理内存的虚拟地址上的数据时，会发生内存访问错误。有两种此类错误：
+
 * A soft fault occurs when the page of the referenced address is resident in physical memory but is currently not mapped into the address space of this process.
+	
+	当引用地址的页面驻留在物理内存中，但当前并未映射到此进程的地址空间中时，会发生**软故障(soft fault)**。
+	
 * A hard fault occurs when the page of the referenced address is not in physical memory but is swapped out to backing store (or is available from a mapped file). This is what is typically known as a page fault.
+
+	当引用地址的页面不在物理内存中但是被换出到后备存储器(或可从一个映射文件中获得)时，会发生**硬故障(hard fault)**。这通常被称为一个页面错误。
 
 When any type of fault occurs, the kernel locates the map entry and VM object for the accessed region. The kernel then goes through the VM object’s list of resident pages. If the desired page is in the list of resident pages, the kernel generates a soft fault. If the page is not in the list of resident pages, it generates a hard fault.
 
+当发生任何类型的故障时，内核定位映射条目和访问区域的VM对象。然后，内核遍历VM对象的常驻页面列表。如果所需的页面在常驻页面列表中，则内核会产生软故障。如果页面不在常驻页面列表中，则会生成一个硬故障。
+
 For soft faults, the kernel maps the physical memory containing the pages to the virtual address space of the process. The kernel then marks the specific page as active. If the fault involved a write operation, the page is also marked as modified so that it will be written to backing store if it needs to be freed later.
+
+对于软故障，内核将包含页面的物理内存映射到进程的虚拟地址空间。然后，内核将这个特定的页面标记为活动的。如果这个故障涉及写入操作，则页面也被标记为已修改，以便如果稍后它需要被释放，它将被写入到后备存储器。
 
 For hard faults, the VM object’s pager finds the page in the backing store or from the file on disk, depending on the type of pager. After making the appropriate adjustments to the map information, the pager moves the page into physical memory and places the page on the active list. As with a soft fault, if the fault involved a write operation, the page is marked as modified.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+对于硬故障来说，根据页面的类型的不同，VM对象的分页器在后备存储器或磁盘上的文件找到该页面。在对映射信息进行适当的调整后，分页器将页面移动到物理内存中，并将页面放在活动列表上。与软故障一样，如果该故障涉及写入操作，页面将被标记为已修改。
