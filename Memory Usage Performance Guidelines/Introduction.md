@@ -18,7 +18,7 @@ This programming topic includes the following articles:
 
 * [Tips for Allocating Memory](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-CJBCFDGA) describes the best techniques for allocating, initializing, and copying memory. It also describes the proper ways to respond to low-memory notifications in iOS.
 
-      [开辟内存小贴士](Tips for Allocating Memory.md)描述了分配、初始化和复制内存的最佳技术。它还描述了在iOS中响应低内存通知的正确方法。
+	[分配内存的技巧](Tips for Allocating Memory.md)描述了分配、初始化和复制内存的最佳技术。它还描述了在iOS中响应低内存通知的正确方法。
       
 * [Caching and Purgeable Memory](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/CachingandPurgeableMemory.html#//apple_ref/doc/uid/TP40013104-SW1) discusses the benefits of caching, and how to avoid some of the problems that can arise from implementing caches. It also details the advantages of implementing purgeable memory into a caching system and how to successfully implement this beneficial technology.
 
