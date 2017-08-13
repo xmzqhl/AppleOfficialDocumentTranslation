@@ -34,6 +34,15 @@ MyGlobalInfo* GetGlobalBuffer()
         return sGlobalBuffer;
 }
 ```
-The only time you have to be careful with code of this sort is when it might be called from multiple threads. In a multithreaded environment, you need to use locks to protect the if statement in your accessor method. The downside to that approach though is that acquiring the lock takes a nontrivial amount of time and must be done every time you access the global variable, which is a performance hit of a different kind. A simpler approach would be to initialize all global variables from your application’s main thread before it spawns any additional threads.
+The only time you have to be careful with code of this sort is when it might be called from multiple threads. In a multithreaded environment, you need to use locks to protect the `if` statement in your accessor method. The downside to that approach though is that acquiring the lock takes a nontrivial amount of time and must be done every time you access the global variable, which is a performance hit of a different kind. A simpler approach would be to initialize all global variables from your application’s main thread before it spawns any additional threads.
 
-唯一需要
+你唯一需要小心这种代码的时候是它可能从多线程调用。在一个多线程环境中，你需要锁来保护你访问器方法中的`if`语句。但是，这种方法的缺点在于，获取锁需要非常多的时间，并且你每次访问全局变量的时候都必须执行，这是一种不同类型的性能影响。一个更简单的方式是在你的应用程序生成其他任何线程之前，从应用的主线程初始化所有的全局变量。
+## Initialize Memory Blocks Efficiently 有效的初始化内存块
+Small blocks of memory, allocated using the `malloc` function, are not guaranteed to be initialized with zeroes. Although you could use the `memset` function to initialize the memory, a better choice is to use the `calloc` routine to allocate the memory in the first place. The `calloc` function reserves the required virtual address space for the memory but waits until the memory is actually used before initializing it. This approach is much more efficient than using `memset`, which forces the virtual memory system to map the corresponding pages into physical memory in order to zero-initialize them. Another advantage of using the `calloc` function is that it lets the system initialize pages as they’re used, as opposed to all at once.
+
+使用`malloc`函数分配的小块内存，不被保证会用0初始化。尽管你可以使用`memset `函数来初始化内存，但更好的选择是使用`calloc`例程分配内存。`calloc`函数储存内存所需的虚拟地址空间，但是，一直等待直到该内存在初始化它之前实际被使用的时候。这种方法比使用`memset`更有效率，这迫使虚拟内存系统将对应的页面映射到物理内存中，以便对其进行0初始化。使用`calloc`函数的另一个好处是，它让系统在页面被使用的时候初始化它们，而不是一次性使用全部。
+## Reuse Temporary Memory Buffers 重用临时内存缓冲区
+If you have a highly-used function that creates a large temporary buffer for some calculations, you might want to consider reusing that buffer rather than reallocating it each time you call the function. Even if your function needs a variable buffer space, you can always grow the buffer as needed using the `realloc` function. For multithreaded applications, the best way to reuse buffers is to add them to your thread-local storage. Although you could store the buffer using a static variable in your function, doing so would prevent you from using that function on multiple threads at the same time.
+
+Caching buffers eliminates much of the overhead for functions that regularly allocate and free large blocks of memory. However, this technique is only appropriate for functions that are called frequently. Also, you should be careful not to cache too many large buffers. Caching buffers does add to the memory footprint of your application and should only be used if testing indicates it would yield better performance.
+
