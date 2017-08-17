@@ -93,9 +93,132 @@ For more information about ARC and how you manage the lifespan of objects, see [
 
 有关ARC的更多信息以及如何管理对象的生命周期，请参阅[迁移到ARC发行说明]()
 ## Allocating Small Memory Blocks Using Malloc 使用malloc分配小内存块
-For small memory allocations, where small is anything less than a few virtual memory pages, malloc sub-allocates the requested amount of memory from a list (or “pool”) of free blocks of increasing size. Any small blocks you deallocate using the free routine are added back to the pool and reused on a “best fit” basis. The memory pool itself is comprised of several virtual memory pages that are allocated using the vm_allocate routine and managed for you by the system.
+For small memory allocations, where small is anything less than a few virtual memory pages, `malloc` sub-allocates the requested amount of memory from a list (or “pool”) of free blocks of increasing size. Any small blocks you deallocate using the free routine are added back to the pool and reused on a “best fit” basis. The memory pool itself is comprised of several virtual memory pages that are allocated using the `vm_allocate` routine and managed for you by the system.
 
-When allocating any small blocks of memory, remember that the granularity for blocks allocated by the malloc library is 16 bytes. Thus, the smallest block of memory you can allocate is 16 bytes and any blocks larger than that are a multiple of 16. For example, if you call malloc and ask for 4 bytes, it returns a block whose size is 16 bytes; if you request 24 bytes, it returns a block whose size is 32 bytes. Because of this granularity, you should design your data structures carefully and try to make them multiples of 16 bytes whenever possible.
+对于少于几个虚拟内存页的大小的小内存的分配，`malloc`从一个逐步增长尺寸的空闲块的列表(或“池”)中分配请求数量的内存。使用free例程释放分配的任何小块将添加回池中，并以"最合适"的方式重用。内存池本身由使用`vm_allocate`例程分配并由系统为您管理的多个虚拟内存页构成。
+
+When allocating any small blocks of memory, remember that the granularity for blocks allocated by the malloc library is 16 bytes. Thus, the smallest block of memory you can allocate is 16 bytes and any blocks larger than that are a multiple of 16. For example, if you call `malloc` and ask for 4 bytes, it returns a block whose size is 16 bytes; if you request 24 bytes, it returns a block whose size is 32 bytes. Because of this granularity, you should design your data structures carefully and try to make them multiples of 16 bytes whenever possible.
+
+当分配任何小块内存时，请记住，malloc库分配的块的粒度为16字节。因此，您可以分配的最小内存块为16字节，并且，任何大于那个数量的块都是16的倍数。例如，如果您调用`malloc`并且请求4个字节，则返回一个大小为16字节的块；如果您请求24字节，则返回一个大小为32字节的块。因为这种粒度，您应该仔细设计您的数据结构，并且尽可能使其成为16字节的倍数。
+
 >Note: By their nature, allocations smaller than a single virtual memory page in size cannot be page aligned.
 >
 >注意：根据其性质，小于单个虚拟内存页大小的分配不能进行页面对齐。
+
+## Allocating Large Memory Blocks using Malloc 使用Malloc分配大内存块
+For large memory allocations, where large is anything more than a few virtual memory pages, `malloc` automatically uses the `vm_allocate` routine to obtain the requested memory. The `vm_allocate` routine assigns an address range to the new block in the logical address space of the current process, but it does not assign any physical memory to those pages right away. Instead, the kernel does the following:
+
+对于任何大于几个虚拟内存页的大内存的分配，`malloc`自动使用`vm_allocate`例程来获取请求的内存。`vm_allocate`例程在当前进程的逻辑地址空间中指定一个地址范围到该新块。但不会立即为那些页面分配任何物理内存。相对应的，内存执行以下操作：
+
+1. It maps a range of memory in the virtual address space of this process by creating a *map entry*; the map entry is a simple structure that defines the starting and ending addresses of the region.
+
+	它通过创建一个映射条目(map entry)来在该进程的虚拟地址空间内映射一个内存范围。映射条目是一个简答的结构，定义了这个区域的起始和结束地址。
+
+2. The range of memory is backed by the default pager.
+
+	内存范围由默认分页器支持。
+
+3. The kernel creates and initializes a VM object, associating it with the map entry.
+
+	内核创建和初始化一个VM对象，将其与映射条目相关联。
+	
+At this point there are no pages resident in physical memory and no pages in the backing store. Everything is mapped virtually within the system. When your code accesses part of the memory block, by reading or writing to a specific address in it, a fault occurs because that address has not been mapped to physical memory. In OS X, the kernel also recognizes that the VM object has no backing store for the page on which this address occurs. The kernel then performs the following steps for each page fault:
+
+在此刻，在物理内存中没有页面，并且在后备存储器中也没有页面。所有东西都在系统内被虚拟地映射。当你的代码该内存块的一部分时，通过读取或写入其中的某个特定地址，会发生故障，因为那个地址还没有被映射到物理内存。在OS X中，内核还可以识别在这个地址发生的页面没有后备存储器，然后，内核为每个页面故障执行以下几步：
+
+1. It acquires a page from the free list and fills it with zeroes.
+
+	它从空闲列表中获取一个页面，并将其填充为0。
+
+2. It inserts a reference to this page in the VM object’s list of resident pages.
+
+	它在VM对象的驻留页面列表中插入一个到这个页面的引用。
+
+3. It maps the virtual page to the physical page by filling in a data structure called the *pmap*. The pmap contains the page table used by the processor (or by a separate memory management unit) to map a given virtual address to the actual hardware address.
+
+	它通过填充一个叫做*pmap*的数据结构来映射该虚拟页面到物理页。该pmap包含被处理器(或单独的内存管理单元)使用的页表，以将给定的虚拟地址映射到实际的硬件地址。
+	
+The granularity of large memory blocks is equal to the size of a virtual memory page, or 4096 bytes. In other words, any large memory allocations that are not a multiple of 4096 are rounded up to this multiple automatically. Thus, if you are allocating large memory buffers, you should make your buffer a multiple of this size to avoid wasting memory.
+
+大内存块的粒度跟虚拟内存页的大小相等，或4096字节。换句话说，不是4096倍数的任何大的内存分配将自动向上舍入到该倍数。因此，如果你正在你分配大内存缓冲区，你应该将缓冲区设置为这个大小的倍数，以避免浪费内存。
+> Note: Large memory allocations are guaranteed to be page-aligned.
+> 
+> 注意：大内存分配是保证页对齐的。
+
+For large allocations, you may also find that it makes sense to allocate virtual memory directly using `vm_allocate`, rather than using `malloc`. The example in Listing 2 shows how to use the `vm_allocate` function.
+
+对于大的分配，您可能还会发现使用`vm_allocate`直接分配虚拟内存是有意义的，而不是使用`malloc`。列表2中的示例显示了如何使用`vm_allocate`函数
+
+**Listing 2**  Allocating memory with vm_allocate
+
+**列表2** 使用vm_allocate分配内存
+
+```
+void* AllocateVirtualMemory(size_t size)
+{
+    char*          data;
+    kern_return_t   err;
+ 
+    // In debug builds, check that we have
+    // correct VM page alignment
+    check(size != 0);
+    check((size % 4096) == 0);
+ 
+    // Allocate directly from VM
+    err = vm_allocate(  (vm_map_t) mach_task_self(),
+                        (vm_address_t*) &data,
+                        size,
+                        VM_FLAGS_ANYWHERE);
+ 
+    // Check errors
+    check(err == KERN_SUCCESS);
+    if(err != KERN_SUCCESS)
+    {
+        data = NULL;
+    }
+ 
+    return data;
+}
+```
+## Allocating Memory in Batches 批量分配内存
+If your code allocates multiple, identically-sized memory blocks, you can use the `malloc_zone_batch_malloc` function to allocate those blocks all at once. This function offers better performance than a series of calls to `malloc` to allocate the same memory. Performance is best when the individual block size is relatively small—less than 4K in size. The function does its best to allocate all of the requested memory but may return less than was requested. When using this function, check the return values carefully to see how many blocks were actually allocated.
+
+如果你的代码分配多个相同大小的内存块，你可以使用`malloc_zone_batch_malloc`函数一次性分配那些块。这个函数比一系列`malloc`的调用来分配同样的内存来说，提供了更好的性能。当单个块大小相对小于4K时，性能最好。该函数尽力分配所有请求的内存，但是可能返回小于请求的内存。当使用这个函数的时候，请仔细检查返回值，以查看实际上分配了多少块。
+
+Batch allocation of memory blocks is supported in OS X version 10.3 and later and in iOS. For information, see the `/usr/include/malloc/malloc.h` header file.
+
+在OS X 10.3及更高版本和iOS中，批量分配内存是被支持的。有关信息，请参阅`/usr/include/malloc/malloc.h`文件。
+
+## Allocating Shared Memory 分配共享内存
+Shared memory is memory that can be written to or read from by two or more processes. Shared memory can be inherited from a parent process, created by a shared memory server, or explicitly created by an application for export to other applications. Uses for shared memory include the following:
+
+共享内存是可以通过两个或更多进程写入或读取的内存。共享内存可以从父进程继承，由一个共享服务创建，或被一个应用程序显式地创建以输出到其他应用程序，使用共享内存包括以下方面:
+
+* Sharing large resources such as icons or sounds
+  
+  共享大量资源，比如图标或声音	
+ 
+* Fast communication between one or more processes
+
+  一个或多个进程的快速通信
+  
+Shared memory is fragile and is generally not recommended when other, more reliable alternatives are available. If one program corrupts a section of shared memory, any programs that also use that memory share the corrupted data. The functions used to create and manage shared memory regions are in the `/usr/include/sys/shm.h` header file.
+
+共享内存很脆弱，且通常在有其它可用办法的时候不建议使用。如果一个程序破坏了共享内存的一个区域，任何其他也用那个内存的程序可能访问了被破坏的数据。创建和管理共享内存区域的函数使用，在`usr/include/sys/shm.h`头文件中。
+## Using Malloc Memory Zones 使用Malloc内存区域
+
+All memory blocks are allocated within a malloc zone (also referred to as a malloc heap). A zone is a variable-size range of virtual memory from which the memory system can allocate blocks. A zone has its own free list and pool of memory pages, and memory allocated within the zone remains on that set of pages. Zones are useful in situations where you need to create blocks of memory with similar access patterns or lifetimes. You can allocate many objects or blocks of memory in a zone and then destroy the zone to free them all, rather than releasing each block individually. In theory, using a zone in this way can minimize wasted space and reduce paging activity. In reality, the overhead of zones often eliminates the performance advantages associated with the zone.
+
+所有的内存块都被分配在一个malloc区域(也称为malloc堆)中。一个区域(zone)是虚拟内存的可变大小的范围，内存系统可次用该区域分配块。一个区域有它自己内存页的空闲列表和内存页池。在该区域内分配的内存保留在那个内存页池中。在你需要创建的具有相似访问模式或生命周期的内存块的情况下，区域是非常有用的。你可以在一个区域中分配许多对象或内存块，然后销毁该区域以释放所有对象，而不是单独释放每个块。理论上说，以这种方式使用区域可以最大限度地减少浪费空间，并减少分页操作。实际上，区域的开销通常会消除与该区域相关的性能优势。
+
+> **Note:** The term zone is synonymous with the terms heap, pool, and arena in terms of memory allocation using the `malloc` routines.
+> 
+> **注意:** 在使用`malloc`例程的内存分配术语中，区域(zone)这个术语跟堆(heap)、池(pool)，和舞台(arena)术语是同义的。
+
+By default, allocations made using the `malloc` function occur within the default malloc zone, which is created when `malloc` is first called by your application. Although it is generally not recommended, you can create additional zones if measurements show there to be potential performance gains in your code. For example, if the effect of releasing a large number of temporary (and isolated) objects is slowing down your application, you could allocate them in a zone instead and simply deallocate the zone.
+
+If you are create objects (or allocate memory blocks) in a custom malloc zone, you can simply free the entire zone when you are done with it, instead of releasing the zone-allocated objects or memory blocks individually. When doing so, be sure your application data structures do not hold references to the memory in the custom zone. Attempting to access memory in a deallocated zone will cause a memory fault and crash your application.
+
+> **Warning:** You should never deallocate the default zone for your application.
+
+At the malloc library level, support for zones is defined in `/usr/include/malloc/malloc.h`. Use the `malloc_create_zone` function to create a custom malloc zone or the `malloc_default_zone` function to get the default zone for your application. To allocate memory in a particular zone, use the `malloc_zone_malloc` , `malloc_zone_calloc` , `malloc_zone_valloc` , or `malloc_zone_realloc` functions. To release the memory in a custom zone, call `malloc_destroy_zone`.
