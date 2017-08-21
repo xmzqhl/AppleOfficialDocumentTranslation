@@ -66,7 +66,11 @@ By default, when an `NSPurgeableData` object is initialized, it is created with 
 
 The system or client objects call the [discardContentIfPossible](https://developer.apple.com/documentation/foundation/nsdiscardablecontent/1408998-discardcontentifpossible) method to discard the purgeable data if the system’s available memory is running low. This method will only discard the data if its counter variable is `0`, and otherwise does nothing. Lastly, the [isContentDiscarded](https://developer.apple.com/documentation/foundation/nsdiscardablecontent/1417470-iscontentdiscarded) method returns `YES` if the memory has been discarded.
 
+如果系统的可用内存不足，系统或客户端对象调用[discardContentIfPossible](https://developer.apple.com/documentation/foundation/nsdiscardablecontent/1408998-discardcontentifpossible)方法来丢弃可清除数据。这个方法只会在数据的计数器变量是`0`的情况下丢弃该数据。否则，不执行任何操作。最后，如果内存已经被清除，[isContentDiscarded](https://developer.apple.com/documentation/foundation/nsdiscardablecontent/1417470-iscontentdiscarded)方法将返回`YES`。
+
 Below is an example of a life cycle for an `NSPurgeableData` object:
+
+下面是一个`NSPurgeableData`对象生命周期的例子：
 
 ```
 NSPurgeableData * data = [[NSPurgeableData alloc] init];
@@ -87,12 +91,17 @@ if([data beginContentAccess]) { //YES if data has not been discarded and counter
 //data is able to be discarded at this point if memory is tight
 
 ```
-### Purgeable Memory and NSCache
+### Purgeable Memory and NSCache 可清除内存和NSCache
 When objects that implement the `NSDiscardableContent` protocol are put in `NSCache` objects, the cache keeps a strong reference to the object. However, if an object’s content has been discarded and the cache’s [evictsObjectsWithDiscardedContent](https://developer.apple.com/documentation/foundation/nscache/1408469-evictsobjectswithdiscardedconten) value is set to `YES`, the object is automatically removed from the cache and is not found by a lookup call.
-### Some Warnings About Purgeable Memory
+
+当实现了`NSDiscardableContent`协议的对象被放到`NSCache`对象中时，缓存保持该对象的一个强引用。然而，如果一个对象的内容已经被丢弃，并且该缓存的[evictsObjectsWithDiscardedContent](https://developer.apple.com/documentation/foundation/nscache/1408469-evictsobjectswithdiscardedconten)的值被设置为`YES`，该对象将从缓存中自动移除，并且不会被一个查找调用找到。
+
+### Some Warnings About Purgeable Memory 关于可清除内存的一些警告
 A caveat to using purgeable memory is that only large objects or chunks of memory can use it directly. The purgeable memory API acts on multi page virtual memory objects, which makes it hard to mark a single small cache element as purgeable. The caching API will do the required bookkeeping to allow small cache elements to use purgeable memory. Likewise, there will be cases where it is awkward to allocate the memory for cache elements through the API directly, such as when a convenience method is used to allocate an object or when an object is allocated in a different layer than the layer doing the caching. In such cases, it is not possible to use purgeable memory.
 
-## When to Use Purgeable Memory
+使用可清除内存的一个注意事项是，只有大型对象或大块内存可以直接使用它。可清除的内存API作用于多页虚拟内存对象，这使得很难将单个小缓存元素标记为可清除。缓存API将执行所需的簿记工作，以允许小缓存元素使用可清除内存。同样地，存在直接通过API分配缓存元素的内存是尴尬的情况，例如当使用便利方法来分配对象时，或者当将对象分配在与执行缓存的层不同的层中时。在这些情况下，不可能使用可清除内存。
+
+## When to Use Purgeable Memory 何时使用可清除内存
 It makes sense to use purgeable memory when the expected cost of purging is less than the expected cost of paging — when the cost of paging is greater than the cost of recomputing the particular data value times the probability that that data item is reused. Many caches fall into this category because their speculative nature makes it likely that the items will not be used again. Similarly, cache items that are easily recomputed are prime candidates for purgeable memory, because the application will not take a huge performance hit if their values have to be recalculated.
 
-
+当预期的清除成本低于分页的预期成本时-当分页成本大于重新计算特定数据值的成本乘以该数据项被重用的概率时，使用可清除内存是有意义的。许多缓存属于这个类别，因为它们推测的性质使得这些项目很可能不会再次被使用。类似地，容易重新计算的缓存项目是可清除内存的主要候选者，因为如果他们的值必须重新计算，应用程序不会花费巨大的性能。
