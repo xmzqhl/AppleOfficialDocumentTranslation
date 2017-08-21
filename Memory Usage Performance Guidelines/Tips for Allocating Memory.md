@@ -246,9 +246,11 @@ The direct copying of memory involves using a routine such as `memcpy` or `memmo
 * You intend to use either the source or destination right away.
 
 	您打算立即使用源或目的地内存。
+	
 * The source or destination block is not page aligned.
 
 	源或目的地块不是页对齐的。
+	
 * The source and destination blocks overlap.
 
 	源和目的地块部分重叠。
