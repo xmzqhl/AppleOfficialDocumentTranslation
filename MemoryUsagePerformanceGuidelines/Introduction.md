@@ -1,7 +1,7 @@
 # Introduction 介绍
 [原文](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/ManagingMemory.html#//apple_ref/doc/uid/10000160-SW1)
 
-> **注意：**本文档翻译于2017年8月22日，如果Apple在之后更新文档，可能出现翻译跟原文不匹配的情况。
+> **注意:**本文档翻译于2017年8月22日，如果Apple在之后更新文档，可能出现翻译跟原文不匹配的情况。
 
 Memory is an important system resource that all programs use. Programs must be loaded into memory before they can run and, while running, they allocate additional memory (both explicitly and implicitly) to store and manipulate program-level data. Making room in memory for a program’s code and data requires time and resources and therefore affect the overall performance of the system. Although you cannot avoid using memory altogether, there are ways to minimize the impact your memory usage has on the rest of the system.
 
