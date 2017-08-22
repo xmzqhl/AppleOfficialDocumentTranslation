@@ -168,11 +168,11 @@ If you specify the `-d` parameter (plus an interval in seconds), `vmmap` takes t
 	
 * regions in the first snapshot that are not in the second
 
-	在第一快照中的不在第二个中的区域
+	在第一个快照中但不在第二个中的区域
 
 * regions in the second snapshot that are not in the first
 
-	在第二个快照中的不在第一个中的区域
+	在第二个快照中但不在第一个中的区域
 ### Interpreting vmmap’s Output 解释vmmap的输出
 The columns of `vmmap` output have no headings. Instead you can interpret the type of data in each column by its format. Table 1 describes these columns.
 
