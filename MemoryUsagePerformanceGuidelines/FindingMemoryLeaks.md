@@ -38,7 +38,7 @@ In OS X, the `leaks` command-line tool searches the virtual memory space of a pr
 
 If `leaks` can determine that the object is an instance of an Objective-C or Core Foundation object, it also displays the name of the object. If you do not want to view the contents of each leaked buffer, you can specify the `-nocontext` option when calling `leaks`. If the `MallocStackLogging` environment variable is set and you are running your application in `gdb`, `leaks` displays a stack trace describing where the buffer was allocated. For more information on `malloc` debugging options, see [Enabling the Malloc Debugging Features](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MallocDebug.html#//apple_ref/doc/uid/20001884-CJBJFIDD).
 
-如果`leaks`可以确定对象是一个Objective-C或Core Foundation对象的实例，它还将显示对象的名称。如果不想查看每个泄漏的缓冲区的内容，您可以在调用`leaks`时指定`-nocontext`选项。如果设置了`MallocStackLogging`环境变量并且您正在`gdb`中运行您的应用程序，则`leaks`显示一个堆栈跟踪来描述该缓冲区被分配的位置。有关`malloc`调试选项的更多信息，请参阅[启用Malloc调试功能](Enabling the Malloc Debugging Features.md)
+如果`leaks`可以确定对象是一个Objective-C或Core Foundation对象的实例，它还将显示对象的名称。如果不想查看每个泄漏的缓冲区的内容，您可以在调用`leaks`时指定`-nocontext`选项。如果设置了`MallocStackLogging`环境变量并且您正在`gdb`中运行您的应用程序，则`leaks`显示一个堆栈跟踪来描述该缓冲区被分配的位置。有关`malloc`调试选项的更多信息，请参阅[启用Malloc调试功能](EnablingTheMallocDebuggingFeatures.md)
 。
 
 > **Note:** The leaks command-line tool is located in `/usr/bin`.
