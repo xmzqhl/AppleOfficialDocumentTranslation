@@ -13,7 +13,7 @@ Instruments应用程序始终是进行任何性能分析的良好起点。Instru
 
 * The Leaks instrument looks for allocated memory that is no longer referenced by your program’s code; see [Finding Leaks Using Instruments](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/FindingLeaks.html#//apple_ref/doc/uid/20001883-SW2).
 
-	Leaks仪器会查找不再被您项目代码引用的已分配的内存。请参阅[使用Instruments查找内存泄露](Finding Memory Leaks.md)
+	Leaks仪器会查找不再被您项目代码引用的已分配的内存。请参阅[使用Instruments查找内存泄露](FindingMemoryLeaks.md)
 * The Shared Memory instrument monitors the opening and unlinking of shared memory regions.
 
 	Shared Memory仪器监控共享内存区域的打开和取消链接。
@@ -27,7 +27,7 @@ You can add any or all of these instruments to a single trace document and gathe
 
 After gathering data for your application, you need to analyze it. The following sections provide tips on how to analyze data using several of the memory-related instruments. For information on how to use the Leaks instrument, see [Finding Leaks Using Instruments](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/FindingLeaks.html#//apple_ref/doc/uid/20001883-SW2).
 
-收集您应用程序的数据之后，您需要对其进行分析。以下部分提供了如何使用几个内存相关的仪器分析数据的技巧。有关如何使用Leaks仪器的信息，请参阅[使用Instruments查找泄漏](Finding Memory Leaks.md)。
+收集您应用程序的数据之后，您需要对其进行分析。以下部分提供了如何使用几个内存相关的仪器分析数据的技巧。有关如何使用Leaks仪器的信息，请参阅[使用Instruments查找泄漏](FindingMemoryLeaks.md)。
 ### Analyzing Memory Allocations with the ObjectAlloc Instrument 使用ObjectAlloc仪器分析内存分配
 You use the ObjectAlloc instrument to track the memory allocation activity for your application. This instrument tracks memory allocations from the time your application is launched until you stop recording data. The instrument shows you the allocations in terms of the number of objects created and the size (or type) of the objects that were created. In the icon viewing mode, the instrument displays a real-time histogram that lets you see changes and trends directly as they occur. It also retains a history of allocations and deallocations, giving you an opportunity to go back and see where those objects were allocated.
 
@@ -52,7 +52,7 @@ In OS X, the `malloc_history` tool displays backtrace data showing exactly where
 
 Before using the `malloc_history` tool on your program, you must first enable the malloc library logging features by setting the `MallocStackLogging` to `1`. You may also want to set the `MallocStackLoggingNoCompact` environment variable to retain information about freed blocks. For more information on these variables, see [Enabling the Malloc Debugging Features](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MallocDebug.html#//apple_ref/doc/uid/20001884-CJBJFIDD).
 
-在您的项目上使用`malloc_history`工具之前，您必须首先通过设置`MallocStackLogging`到`1`来启用malloc库记录功能。你也可以设置`MallocStackLoggingNoCompact`环境变量来保留有关已释放块的信息。有关这些变量的更多信息，请参阅[启用Malloc调试功能](Enabling the Malloc Debugging Features.md)。
+在您的项目上使用`malloc_history`工具之前，您必须首先通过设置`MallocStackLogging`到`1`来启用malloc库记录功能。你也可以设置`MallocStackLoggingNoCompact`环境变量来保留有关已释放块的信息。有关这些变量的更多信息，请参阅[启用Malloc调试功能](EnablingTheMallocDebuggingFeatures.md)。
 
 The `malloc_history` tool is best used in situations where you need to find the previous owner of a block of memory. If you determine that a particular data is somehow becoming corrupted, you can put checks into your code to print the address of the block when the corruption occurs. You can then use `malloc_history` to find out who owns the block and identify any stale pointers.
 
