@@ -5,7 +5,7 @@ Memory is an important resource for your application so it’s important to thin
 
 The following sections describe the basic options for allocating memory along with tips for doing so efficiently. To determine if your application has memory performance problems in the first place, you need to use the Xcode tools to look at your application’s allocation patterns while it is running. For information on how to do that, see [Tracking Memory Usage](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/FindingPatterns.html#//apple_ref/doc/uid/20001882-CJBJFIDD).
 
-以下部分描述了分配内存的基本选项以及高效分配内存的技巧。要确定您的应用程序是否有内存性能问题，首先，在您应用运行的时候，需要使用Xcode工具来查看它的分配模式。有关如何执行此操作的信息，请参阅[跟踪内存使用](Tracking Memory Usage.md)
+以下部分描述了分配内存的基本选项以及高效分配内存的技巧。要确定您的应用程序是否有内存性能问题，首先，在您应用运行的时候，需要使用Xcode工具来查看它的分配模式。有关如何执行此操作的信息，请参阅[跟踪内存使用](TrackingMemoryUsage.md)
 ## Tips for Improving Memory-Related Performance 提高内存相关性能的技巧
 As you design your code, you should always be aware of how you are using memory. Because memory is an important resource, you want to be sure to use it efficiently and not be wasteful. Besides allocating the right amount of memory for a given operation, the following sections describe other ways to improve the efficiency of your program’s memory usage.
 
@@ -91,7 +91,7 @@ After creating an object, the compiler’s ARC feature determines the lifespan o
 
 For more information about ARC and how you manage the lifespan of objects, see [Transitioning to ARC Release Notes](https://developer.apple.com/library/content/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226).
 
-有关ARC的更多信息以及如何管理对象的生命周期，请参阅[迁移到ARC发行说明]()
+有关ARC的更多信息以及如何管理对象的生命周期，请参阅[迁移到ARC发行说明](https://developer.apple.com/library/content/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226)
 ### Allocating Small Memory Blocks Using Malloc 使用malloc分配小内存块
 For small memory allocations, where small is anything less than a few virtual memory pages, `malloc` sub-allocates the requested amount of memory from a list (or “pool”) of free blocks of increasing size. Any small blocks you deallocate using the free routine are added back to the pool and reused on a “best fit” basis. The memory pool itself is comprised of several virtual memory pages that are allocated using the `vm_allocate` routine and managed for you by the system.
 
@@ -225,7 +225,7 @@ If you are create objects (or allocate memory blocks) in a custom malloc zone, y
 
 > **Warning:** You should never deallocate the default zone for your application.
 > 
-> **警告:**您应该永远不要为应用程序释放默认区域。
+> **警告:** 您应该永远不要为应用程序释放默认区域。
 
 At the malloc library level, support for zones is defined in `/usr/include/malloc/malloc.h`. Use the `malloc_create_zone` function to create a custom malloc zone or the `malloc_default_zone` function to get the default zone for your application. To allocate memory in a particular zone, use the `malloc_zone_malloc` , `malloc_zone_calloc` , `malloc_zone_valloc` , or `malloc_zone_realloc` functions. To release the memory in a custom zone, call `malloc_destroy_zone`.
 
@@ -315,4 +315,4 @@ If you have only a few custom objects with known purgeable resources, you can ha
 
 > **Important:** Like the system applications, your applications should always handle low-memory warnings, even if they do not receive those warnings during your testing. System applications consume small amounts of memory while processing requests. When a low-memory condition is detected, the system delivers low-memory warnings to all running programs (including your application) and may terminate some background applications (if necessary) to ease memory pressure. If not enough memory is released—perhaps because your application is leaking or still consuming too much memory—the system may still terminate your application.
 > 
-> **重要：**与系统应用程序一样，您的应用程序应该始终处理低内存警告，即使在您的测试期间它们并没有收到这些警告。系统应用程序在处理请求时消耗少量内存。当检测到低内存条件时，系统会向所有正在运行的程序(包括你的应用程序)传递低内存警告，并可能终止一些后台程序(如有必要)以缓解内存压力。如果没有足够的内存被释放-可能因为您的应用程序内存泄露或仍然消耗大量内存-系统仍可能会终止您的应用程序。
+> **重要：** 与系统应用程序一样，您的应用程序应该始终处理低内存警告，即使在您的测试期间它们并没有收到这些警告。系统应用程序在处理请求时消耗少量内存。当检测到低内存条件时，系统会向所有正在运行的程序(包括你的应用程序)传递低内存警告，并可能终止一些后台程序(如有必要)以缓解内存压力。如果没有足够的内存被释放-可能因为您的应用程序内存泄露或仍然消耗大量内存-系统仍可能会终止您的应用程序。
