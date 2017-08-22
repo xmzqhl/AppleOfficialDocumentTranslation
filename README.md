@@ -1,7 +1,7 @@
 # 苹果官方文档翻译
 ## 已翻译：
 
-1、[内存使用性能指南(Memory Usage Performance Guidelines)](Memory Usage Performance Guidelines/Introduction.md)
+1、[内存使用性能指南(Memory Usage Performance Guidelines)](MemoryUsagePerformanceGuidelines/Introduction.md)
 
 2、[使用Application Loader](http://help.apple.com/itc/apploader/)
 
