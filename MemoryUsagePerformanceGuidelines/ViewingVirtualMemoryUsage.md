@@ -206,7 +206,7 @@ The protection mode (column 5) describes the access restrictions for the memory 
 
 > **Note:** Pages representing part of a Mach-O executable are usually not writable. The first page (`__PAGEZERO`, starting at address `0x00000000`) has no permissions set. This ensures that any reference to a `NULL` pointer immediately causes an error. The page just before the stack is similarly protected so that stack overflows cause the application to crash immediately.
 > 
-> **注意：**表示Mach-O可执行文件的一部分的页面通常不可写。第一页（`__PAGEZERO`,从地址`0x00000000`开始）没有设置权限。这确保任何对`NULL`指针的引用会立即引起错误。该栈之前的页面也受到类似的保护，因此栈溢出会导致应用程序立即崩溃。
+> **注意：** 表示Mach-O可执行文件的一部分的页面通常不可写。第一页（`__PAGEZERO`,从地址`0x00000000`开始）没有设置权限。这确保任何对`NULL`指针的引用会立即引起错误。该栈之前的页面也受到类似的保护，因此栈溢出会导致应用程序立即崩溃。
 
 The sharing mode (`SM=` field) tells you whether pages are shared between processes and what happens when pages are modified. Private pages (`PRV`) are visible only to the process and are allocated as they are used. Private pages can also be paged out to disk. Copy-on-write (`COW`) pages are shared by multiple processes (or shared by a single process in multiple locations). When the page is modified, the writing process then receives its own copy of the page. Empty (`NUL`) sharing implies that the page does not really exist in physical memory. Aliased (`ALI`) and shared (`SHM`) memory are shared between processes.
 
