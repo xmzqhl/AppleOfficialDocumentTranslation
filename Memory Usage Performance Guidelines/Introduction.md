@@ -16,7 +16,7 @@ This programming topic includes the following articles:
 
 * [About the Virtual Memory System](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html#//apple_ref/doc/uid/20001880-BCICIHAB) introduces the terminology and provides a high-level overview of the virtual memory systems of OS X and iOS.
 
-     [关于虚拟内存系统](About the Virtual Memory System.md)介绍了OS X和iOS的虚拟内存系统的术语和高级概述。
+     [关于虚拟内存系统](AboutTheVirtualMemorySystem.md)介绍了OS X和iOS的虚拟内存系统的术语和高级概述。
 
 * [Tips for Allocating Memory](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-CJBCFDGA) describes the best techniques for allocating, initializing, and copying memory. It also describes the proper ways to respond to low-memory notifications in iOS.
 
