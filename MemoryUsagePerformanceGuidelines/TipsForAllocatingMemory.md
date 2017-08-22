@@ -282,7 +282,7 @@ When copying data into VRAM, use the `BlockMoveDataUncached` function instead of
 
 当复制数据到VRAM中时，使用`BlockMoveDataUncached`函数，而不是如`bcopy`这样的函数。`bcopy`函数使用可能引起异常错误的缓存处理指令。内核必须修复这些错误才能继续，这会大大降低性能。
 
-## Responding to Low-Memory Warnings in iOS 在iOS中响应低内存警告
+## <a name="RtlmwiniOS"></a>Responding to Low-Memory Warnings in iOS 在iOS中响应低内存警告
 
 The virtual memory system in iOS does not use a backing store and instead relies on the cooperation of applications to remove strong references to objects. When the number of free pages dips below the computed threshold, the system releases unmodified pages whenever possible but may also send the currently running application a low-memory notification. If your application receives this notification, heed the warning. Upon receiving it, your application must remove strong references to as many objects as possible. For example, you can use the warnings to clear out data caches that can be recreated later.
 

@@ -172,7 +172,7 @@ In OS X, when the number of pages in the free list dips below a computed thresho
 
 > Note: In iOS, the kernel does not write pages out to a backing store. When the amount of free memory dips below the computed threshold, the kernel flushes pages that are inactive and unmodified and may also ask the running application to free up memory directly. For more information on responding to these notifications, see [Responding to Low-Memory Warnings in iOS](https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/MemoryAlloc.html#//apple_ref/doc/uid/20001881-SW1).
 > 
-> 注意：在iOS中，内核不会将页面写出到后备存储器。当可用内存下降到计算出的阈值以下时，内核将刷新非活动和未修改的页面，并且还可能直接要求正在运行的应用程序来释放内存。有关响应这些通知的更多信息，请参阅[在iOS中响应低内存警告](Tips for Allocating Memory.md)
+> 注意：在iOS中，内核不会将页面写出到后备存储器。当可用内存下降到计算出的阈值以下时，内核将刷新非活动和未修改的页面，并且还可能直接要求正在运行的应用程序来释放内存。有关响应这些通知的更多信息，请参阅[在iOS中响应低内存警告](TipsForAllocatingMemory.md#RtlmwiniOS)
 
 ## <a name="paginginprocess"></a>Paging In Process 页入处理
 The final phase of virtual memory management moves pages into physical memory, either from the backing store or from the file containing the page data. A memory access fault initiates the page-in process. A memory access fault occurs when code tries to access data at a virtual address that is not mapped to physical memory. There are two kinds of faults:
