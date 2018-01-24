@@ -18,7 +18,7 @@ This programming topic contains the following articles:
 
 * [Object Graphs](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/objectgraphs.html#//apple_ref/doc/uid/20001293-CJBDFIBI) introduces the concept of an object graph and discusses the two techniques for turning objects into byte streams: archives and serializations. 
                                                         
-   [对象图](对象图.md) 引入了对象图的概念，并讨论了将对象转变为字节流的两种技术：归档和序列化。
+    [对象图](对象图.md) 引入了对象图的概念，并讨论了将对象转变为字节流的两种技术：归档和序列化。
 
 * [Archives](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/archives.html#//apple_ref/doc/uid/20000946-BAJDBJAI) describes the different types of archive and archiver classes
 
