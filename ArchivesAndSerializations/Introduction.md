@@ -22,19 +22,19 @@ This programming topic contains the following articles:
 
 * [Archives](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/archives.html#//apple_ref/doc/uid/20000946-BAJDBJAI) describes the different types of archive and archiver classes
 
- [归档](归档.md) 介绍了不同类型的归档和归档类。
+   [归档](归档.md) 介绍了不同类型的归档和归档类。
 
 * [Creating and Extracting Archives](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/creating.html#//apple_ref/doc/uid/20000949-BABGBHCA) describes how to create and extract an archive.
  
- [创建和提取归档](创建和提取归档.md) 介绍如何创建和提取一个归档。
+   [创建和提取归档](创建和提取归档.md) 介绍如何创建和提取一个归档。
  
 * [Encoding and Decoding Objects](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/codingobjects.html#//apple_ref/doc/uid/20000948-BCIHBJDE) describes how to implement the methods that allow an object to be encoded in and decoded from archives.
 
- [编码和解码对象](编码和解码对象.md) 介绍了如何实现允许一个对象被编码到归档和从归档中解码的方法。
+   [编码和解码对象](编码和解码对象.md) 介绍了如何实现允许一个对象被编码到归档和从归档中解码的方法。
  
 * [Encoding and Decoding C Data Types](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/codingctypes.html#//apple_ref/doc/uid/20001294-BBCBDHBI) describes how to encode and decode C data types that do not have convenience methods defined in the archive classes.
 
- [编码和解码C数据类型](编码和解码C数据类型.md) 介绍了如何编码和解码 在归档类中没有定义便利方法的C数据类型。
+   [编码和解码C数据类型](编码和解码C数据类型.md) 介绍了如何编码和解码 在归档类中没有定义便利方法的C数据类型。
  
 * [Forward and Backward Compatibility for Keyed Archives](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/compatibility.html#//apple_ref/doc/uid/20001055-BCICFFGE) provides some tips on how to make your classes more compatible with previous and future versions of your classes in keyed archives.
 
@@ -42,8 +42,8 @@ This programming topic contains the following articles:
 	
 * [Subclassing NSCoder](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/subclassing.html#//apple_ref/doc/uid/20000951-BABEIEHG) provides some tips on how to create your own coder classes.
 
- [子类化NSCoder](子类化NSCoder.md) 提供了一些关于如何创建自己的编码器类的提示。
+   [子类化NSCoder](子类化NSCoder.md) 提供了一些关于如何创建自己的编码器类的提示。
 
 * [Serializing Property Lists](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Articles/serializing.html#//apple_ref/doc/uid/20000952-BABBEJEE) describes how to create and read serialized representations of a property list
  
- [序列化属性列表](序列化属性列表.md) 介绍了如何创建和读取一个属性列表的的序列化表示。
+   [序列化属性列表](序列化属性列表.md) 介绍了如何创建和读取一个属性列表的的序列化表示。
