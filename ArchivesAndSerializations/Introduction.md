@@ -1,6 +1,6 @@
 # Introduction 介绍
 
-> **注意：**本文档翻译于2018年01月24日。如果Apple在这之后更新了文档，可能出现翻译跟官方原文不匹配的情况。[原文](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Archiving.html#//apple_ref/doc/uid/10000047-SW1)
+> **注意：** 本文档翻译于2018年01月24日。如果Apple在这之后更新了文档，可能出现翻译跟官方原文不匹配的情况。[原文](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Archiving/Archiving.html#//apple_ref/doc/uid/10000047-SW1)
 
 Archives and serializations are two ways in which you can create architecture-independent byte streams of hierarchical data. Byte streams can then be written to a file or transmitted to another process, perhaps over a network. When the byte stream is decoded, the hierarchy is regenerated. Archives provide a detailed record of a collection of interrelated objects and values. Serializations record only the simple hierarchy of property-list values.
 
