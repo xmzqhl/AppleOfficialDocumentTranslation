@@ -18,9 +18,9 @@
 
 8、[iTunes Connect 的 In-App Purchase 配置指南(In-App Purchase Configuration Guide for iTunes Connect)](https://developer.apple.com/library/content/documentation/LanguagesUtilities/Conceptual/iTunesConnectInAppPurchase_Guide_SCh/Chapters/Introduction.html#//apple_ref/doc/uid/TP40014488-CH1-SW1)
 
-9、[归档和序列化编程指南](ArchivesAndSerializations/Introduction.md)
+9、[归档和序列化编程指南(Archives and Serializations Programming Guide)](ArchivesAndSerializations/Introduction.md)
 
-10、[属性列表编程指南](PropertyList/Introduction.md)
+10、[属性列表编程指南(Property List Programming Guide)](PropertyList/Introduction.md)
 ## 未翻译：
 1. [Text Programming Guide for iOS](https://developer.apple.com/library/content/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542-CH1-SW1)
  
