@@ -12,7 +12,7 @@
 
 5、[iTunes Connect 销售和趋势指南](http://help.apple.com/itc/appssalesandtrends/e3)
 
-6、[App 元数据规范 5.4.3](http://help.apple.com/itc/appsspec/e3)
+6、[App 元数据规范 5.4.3](http://help.apple.com/itc/appsspec/)
 
 7、[Transporter 用户指南](https://help.apple.com/itc/transporteruserguide/e3)
 
