@@ -10,11 +10,11 @@
 4、[“App 分析”指南
 ](http://help.apple.com/itc/appanalytics/)
 
-5、[iTunes Connect 销售和趋势指南](http://help.apple.com/itc/appssalesandtrends/e3)
+5、[iTunes Connect 销售和趋势指南](http://help.apple.com/itc/appssalesandtrends/)
 
 6、[App 元数据规范 5.4.3](http://help.apple.com/itc/appsspec/)
 
-7、[Transporter 用户指南](https://help.apple.com/itc/transporteruserguide/e3)
+7、[Transporter 用户指南](https://help.apple.com/itc/transporteruserguide/)
 
 8、[iTunes Connect 的 In-App Purchase 配置指南(In-App Purchase Configuration Guide for iTunes Connect)](https://developer.apple.com/library/content/documentation/LanguagesUtilities/Conceptual/iTunesConnectInAppPurchase_Guide_SCh/Chapters/Introduction.html#//apple_ref/doc/uid/TP40014488-CH1-SW1)
 
