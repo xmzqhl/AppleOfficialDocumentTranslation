@@ -24,6 +24,8 @@
 
 11、[KVC编程指南](https://juejin.im/post/5bf1b968f265da6134380053)
 
+12、[altool 指南](https://help.apple.com/asc/appsaltool/)
+
 ## 未翻译：
 1. [Text Programming Guide for iOS](https://developer.apple.com/library/content/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542-CH1-SW1)
  
