@@ -28,4 +28,4 @@ In addition to the default build settings provided by Xcode when you create a ne
 
 [Xcode Project](Xcode%20Project.md)
 
-[Xcode Scheme](Xocde%20Scheme.md)
+[Xcode Scheme](Xcode%20Scheme.md)
