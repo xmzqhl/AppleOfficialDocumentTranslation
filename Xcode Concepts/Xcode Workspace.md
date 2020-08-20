@@ -25,10 +25,22 @@ The workspace document contains pointers to the included projects and other file
 
 By default, all the Xcode projects in a workspace are built in the same directory, referred to as the workspace build directory. Each workspace has its own build directory. Because all of the files in all of the projects in a workspace are in the same build directory, all of these files are visible to each project. Therefore, if two or more projects use the same libraries, you don’t need to copy them into each project folder separately.
 
-默认情况下，`workspace`中的所有Xcode工程都构建在同一个目录中，成为`workspace`构建目录。每个`workspace`有其自己的构建目录。因为`workspace`中所有工程的所有文件都在用一个构建目录中，所以这些文件对每个工程都是可见的。因此，如果两个或多个工程使用相同的库，您无需分别复制他们到每个项目文件夹中。
+默认情况下，`workspace`中的所有Xcode工程都构建在同一个目录中，成为`workspace`构建目录。每个`workspace`有其自己的构建目录。因为`workspace`中所有工程的所有文件都在用一个构建目录中，所以这些文件对每个工程都是可见的。因此，如果两个或多个工程使用相同的库，您无需分别复制他们到每个工程的文件夹中。
 
 Xcode examines the files in the build directory to discover implicit dependencies. For example, if one project included in a workspace builds a library that is linked against by another project in the same workspace, Xcode automatically builds the library before building the other project, even if the build configuration does not make this dependency explicit. You can override such implicit dependencies with explicit build settings if necessary. For explicit dependencies, you must create project references.
 
+Xcode检查在构建目录中的文件以发现隐式依赖。例如，如果一个`workspace`里的工程构建了被`workspace`中另一个工程链接的库，Xcode则会在构建另一个工程之前自动构建这个库，即使构建配置没有明确显式做这个依赖。如有需要的话， 您可以使用显式构建设置来覆盖此类隐式依赖。对于显式依赖，你必须创建工程引用。
+
 Each project in a workspace continues to have its own independent identity. To work on a project without affecting—or being affected by—the other projects in the workspace, you can open the project without opening the workspace, or you can add the project to another workspace. Because a project can belong to more than one workspace, you can work on your projects in any number of combinations without having to reconfigure any of the projects or workspaces.
 
+在`workspace`里的每个工程都将继续拥有自己独立的身份。要在不影响或不被在`workspace`里其他工程影响的情况下处理工程，你可以在不打开`workspace`的情况下打开工程，或者你可以把该工程添加到另一个`workspace`。由于一个工程可以属于多个`workspace`，你可以以多种组合方式来在工程上工作，而不必重新配置任何工程或`workspace`。
+
 You can use the workspace’s default build directory or you can specify one. Note that if a project specifies a build directory, that directory is overridden by the build directory of whatever workspace the project is in at the time you build the project.
+
+你可以使用`workspace`的默认构建目录，或者你可以指定一个。注意，如果一个工程指定了一个构建目录，那么在构建工程时，该目录将被该工程所在的任何`workspace`的构建目录覆盖。
+#### 相关文章
+[Projects](Xcode%20Project.md)
+
+[Targets](Xcode%20Target.md)
+
+[Build Settings](Build%20Settings.md)
