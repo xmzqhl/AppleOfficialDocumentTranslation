@@ -26,7 +26,9 @@
 
 12、[altool 指南](https://help.apple.com/asc/appsaltool/)
 
-13、[Threading Programming Guide](https://github.com/0oneo/iOSTranslation/blob/master/Apple/%E7%BF%BB%E8%AF%91%20Threading%20Programming%20Guide.md)
+13、[线程编程指南(Threading Programming Guide)](https://github.com/0oneo/iOSTranslation/blob/master/Apple/%E7%BF%BB%E8%AF%91%20Threading%20Programming%20Guide.md)
+
+14、[开发者帐户帮助](https://help.apple.com/developer-account/)
 
 ## 未翻译：
 1. [Text Programming Guide for iOS](https://developer.apple.com/library/content/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542-CH1-SW1)
