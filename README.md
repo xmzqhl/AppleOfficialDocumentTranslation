@@ -30,7 +30,7 @@
 
 14、[开发者帐户帮助](https://help.apple.com/developer-account/)
 
-14、[Xcode Concepts](Xcode%20Concepts/Xcode%20Target.md)
+15、[Xcode Concepts](Xcode%20Concepts/Xcode%20Target.md)
 
 ## 未翻译：
 1. [Text Programming Guide for iOS](https://developer.apple.com/library/content/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542-CH1-SW1)
