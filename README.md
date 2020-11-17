@@ -32,6 +32,10 @@
 
 15、[Xcode Concepts](Xcode%20Concepts/Xcode%20Target.md)
 
+16、[IAP收据验证](IAP/receipt_exp.md)
+
+17、[IAP服务器通知](IAP/iap_server_noti_exp.md)
+
 ## 未翻译：
 1. [Text Programming Guide for iOS](https://developer.apple.com/library/content/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542-CH1-SW1)
  
