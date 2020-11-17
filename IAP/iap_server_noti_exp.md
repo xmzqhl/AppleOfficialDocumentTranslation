@@ -21,7 +21,7 @@
 	"latest_receipt_info" : { //在latest_receipt值的json表示。该字段在收据中是一个数组，但是在服务器通知中是一个对象。沙盒下已移除，使用unified_receipt.Latest_receipt_info替代
 
 	},
-	"notification_type" : "", //触发该通知的订阅事件。
+	"notification_type" : "", //触发该通知的订阅事件。具体值请查看下面的文档
 	"password" : "6543", //跟你在验证收据时请求里提交的共享密钥password字段相同。
 	"unified_receipt" : { //包含有关app内最近的IAP交易信息的对象
 
@@ -30,3 +30,5 @@
 	"bvrs" : "ytre", //一个包含app bundle版本号的字符串
 } 
 ```
+
+上述字段中`notification_type`的值，可能有多个，具体值，以及含义请查看[通知类型解释](noti_type_exp.md)
