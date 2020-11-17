@@ -21,11 +21,13 @@
 	"latest_receipt_info" : { //在latest_receipt值的json表示。该字段在收据中是一个数组，但是在服务器通知中是一个对象。沙盒下已移除，使用unified_receipt.Latest_receipt_info替代
 			//由于该字段要被废弃，不再进行翻译，具体包含的字段可直接查看英文原文，字段含义跟unified_receipt里对应字段含义一致。
 	},
-	"notification_type" : "", //触发该通知的订阅事件。具体值请查看下面的文档
+	"notification_type" : "CANCEL", //触发该通知的订阅事件。具体值请查看下面的文档
 	"password" : "6543", //跟你在验证收据时请求里提交的共享密钥password字段相同。
-	"unified_receipt" : { //包含有关app内最近的IAP交易信息的对象 		"environment" : "Production", // AppStore生成收据的环境。可能的值：Sandbox, Production
+	"unified_receipt" : { //包含有关app内最近的IAP交易信息的对象 	
+        "environment" : "Production", // AppStore生成收据的环境。可能的值：Sandbox, Production
 		"latest_receipt" : "45wef", //最新的base64编码的收据
 		"latest_receipt_info" : [ //一个数组，包含在latest_receipt中已解码的最新100次IAP交易.该数组不包括已被App标记为完成的消耗型交易。数组的内容跟验证收据响应中的Latest_receipt_info内容相同
+        {
             "cancellation_date" : "124", //ISO8601格式的取消一笔交易的时间。此字段仅适用于退款交易。
             "cancellation_date_ms" : "1243", //Unix纪元时间格式，以毫秒为单位。取消交易时间，或者续订升级的时间。此字段仅适用于退款交易。
             "cancellation_date_pst" : "124", //取消交易的太平洋时间。仅适用于退款交易
@@ -50,8 +52,10 @@
             "subscription_group_identifier" : "14", //订阅所属群组的标识符
             "transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
             "web_order_line_item_id" : "235", // 跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
-							],
+            },
+        ],
 		"pending_renewal_info" : [ //一个数组，其中每个元素包含product_id中标识的每个自动续期的待续订信息。该数组的内容与验证收据响应中的pending_renewal_info内容相同
+            {
             "auto_renew_product_id" : "qwe", //当前续订的首选项。值是一个product_id。仅当用户降级或跨级一个不同时长的订阅才出现该字段。
             "auto_renew_status" : "1", // 1：订阅将在当前订阅期结束时续订； 0：用户已关闭续订
             "expiration_intent" : "1", // 1:用户自愿取消订阅；2：账单错误，比如用户支付信息无效；3：用户不同意最近的涨价；4：续订时无法购买产品；5：未知错误
@@ -63,6 +67,7 @@
             "original_transaction_id" : "1245", //参考receipt.in_app.original_transaction_id
             "price_consent_status" : "1", //订阅涨价的同意状态。仅当通知顾客涨价后才显示该字段。默认值为0，如果顾客同意了，则改为"1".
             "product_id" : "wnr", //已购产品的唯一标识符。
+            },
 		],
 		"status" : 0 //状态码，0表示该通知是有效的
 	},
