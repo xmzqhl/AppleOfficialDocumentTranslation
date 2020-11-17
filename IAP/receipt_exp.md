@@ -77,29 +77,29 @@
 		"request_date_pst" : "",
 		"version_external_identifier" : 0, //标识应用修订版的任意数字，沙盒下始终为0.
 		in_app : [ //包含所有内购交易的内购收据字段的数组
-            {
-                "cancellation_date" : "1343", //苹果客户支持取消一个交易，或一个续订计划被升级的时间。以ISO 8601格式。该字段仅出现在退款交易
-                "cancellation_date_ms" : "1234",
-                "cancellation_date_pst" : "", //太平洋时间
-                "cancellation_reason" : "1", // 退款交易的原因。1表示因为实际或app内感知问题而取消；0表示其他原因。
-                "expires_date" : "", //订阅过期时间，或续订时间。以类似于ISO 8601格式。
-                "expires_date_ms" : "",
-                "expires_date_pst" : "",
-                "is_in_intro_offer_period" : "true", //续订是否在推介促销优惠价格期间。"true"/"false"。
-                "is_trial_period" : "false", // 订阅是否在免费试用期内的指示器。"true"/"false"。
-                "original_purchase_date" : "23", //原始应用内购买的时间。iso 8601格式
-                "original_purchase_date_ms" : "", //对于续期订阅，该值指示初次购买的时间。
-                "original_purchase_date_pst" : "", 
-                "original_transaction_id" : "4453231", //原始交易标识符。使用此值来 将收据中的交易跟服务器通知事件匹配、管理自动续期订阅、标识在pending_renewal_info区域的订阅，当看到product_id的一个新original_transaction_id值时，将此视为新订阅、区分购买交易与恢复交易或续订交易，在购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配、 标识同一订阅的一个或多个续订。
-                "product_id" : "24", //已购产品的唯一标识符
-                "promotional_offer_id" : "34", //用户兑换的订阅优惠的标识符。使用此值来 确认订阅的销售来自促销优惠、确认用户兑换了哪种促销优惠、根据业务来跟踪用户已兑换的优惠以限制提供的折扣。
-                "purchase_date" : "421",//AppStore为购买或恢复产品从用户账户扣费的时间。或为订阅购买或一段时间后的续订的扣费时间。ISO 8601格式
-                "purchase_date_ms" : "4312",
-                "purchase_date_pst" : "543", 
-                "quantity" : "1", //购买的消耗型产品的数量。通常为1，最大值为10.
-                "transaction_id" : "134", //比如购买，恢复，续订交易的唯一标识符。你可以使用此值来1、管理你账户数据库中的订阅。为每个交易存储transaction_id、original_transaction_id和product_id来作为为每个用户交易记录的最佳的实践。每次订阅续订时或在新设备上恢复时，AppStore会生成一个新值；2、将购买的交易与一个恢复的或一个续订的交易区分开，在一个购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配。如果用户多次恢复或续订相同的购买，则每次恢复或续订有一个不同的transaction_id。
-                "web_order_line_item_id" : "432", //跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
-            }
+                {
+                    "cancellation_date" : "1343", //苹果客户支持取消一个交易，或一个续订计划被升级的时间。以ISO 8601格式。该字段仅出现在退款交易
+                    "cancellation_date_ms" : "1234",
+                    "cancellation_date_pst" : "", //太平洋时间
+                    "cancellation_reason" : "1", // 退款交易的原因。1表示因为实际或app内感知问题而取消；0表示其他原因。
+                    "expires_date" : "", //订阅过期时间，或续订时间。以类似于ISO 8601格式。
+                    "expires_date_ms" : "",
+                    "expires_date_pst" : "",
+                    "is_in_intro_offer_period" : "true", //续订是否在推介促销优惠价格期间。"true"/"false"。
+                    "is_trial_period" : "false", // 订阅是否在免费试用期内的指示器。"true"/"false"。
+                    "original_purchase_date" : "23", //原始应用内购买的时间。iso 8601格式
+                    "original_purchase_date_ms" : "", //对于续期订阅，该值指示初次购买的时间。
+                    "original_purchase_date_pst" : "", 
+                    "original_transaction_id" : "4453231", //原始交易标识符。使用此值来 将收据中的交易跟服务器通知事件匹配、管理自动续期订阅、标识在pending_renewal_info区域的订阅，当看到product_id的一个新original_transaction_id值时，将此视为新订阅、区分购买交易与恢复交易或续订交易，在购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配、 标识同一订阅的一个或多个续订。
+                    "product_id" : "24", //已购产品的唯一标识符
+                    "promotional_offer_id" : "34", //用户兑换的订阅优惠的标识符。使用此值来 确认订阅的销售来自促销优惠、确认用户兑换了哪种促销优惠、根据业务来跟踪用户已兑换的优惠以限制提供的折扣。
+                    "purchase_date" : "421",//AppStore为购买或恢复产品从用户账户扣费的时间。或为订阅购买或一段时间后的续订的扣费时间。ISO 8601格式
+                    "purchase_date_ms" : "4312",
+                    "purchase_date_pst" : "543", 
+                    "quantity" : "1", //购买的消耗型产品的数量。通常为1，最大值为10.
+                    "transaction_id" : "134", //比如购买，恢复，续订交易的唯一标识符。你可以使用此值来1、管理你账户数据库中的订阅。为每个交易存储transaction_id、original_transaction_id和product_id来作为为每个用户交易记录的最佳的实践。每次订阅续订时或在新设备上恢复时，AppStore会生成一个新值；2、将购买的交易与一个恢复的或一个续订的交易区分开，在一个购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配。如果用户多次恢复或续订相同的购买，则每次恢复或续订有一个不同的transaction_id。
+                    "web_order_line_item_id" : "432", //跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
+                }
         ],
 	},
 	"status" : 0 //收据有效时为0，或者当有错误发生的时候为一个状态码。状态码反应整个应用收据的状态。
