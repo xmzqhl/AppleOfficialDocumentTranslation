@@ -11,31 +11,31 @@
 	"latest_receipt" : "abc", //最新的base64编码的收据。仅针对包含自动续期的收据返回。
 	"latest_receipt_info" : [ //包含所有IAP交易的数组，这排除了已被app标记完成的消耗型产品。仅当收据包含自动续期订阅返回
         {
-			"cancellation_date" : "124", //ISO8601格式的取消一笔交易的时间。此字段仅适用于退款交易。
-			"cancellation_date_ms" : "1243", //Unix纪元时间格式，以毫秒为单位。取消交易时间，或者续订升级的时间。此字段仅适用于退款交易。
-			"cancellation_date_pst" : "124", //取消交易的太平洋时间。仅适用于退款交易
-			"cancellation_reason" : "1", //退款原因。1表示客户由于您应用的实际或感知问题而取消了交易；0表示其他原因，例如顾客意外购买。
-			"expires_date": "", //到期时间或续订时间。ISO 8601格式
-			"expires_date_ms" : "1345", //unix纪元时间格式的过期时间或续订时间，毫秒为单位。
-			"expires_date_pst" : "", //在太平洋时区的 过期时间或续订时间。
-			"is_in_intro_offer_period" : "true", //续订是否在推介促销优惠价格期间。"true"/"false"。
-			"is_trial_period" : "false", //订阅是否在免费试用期内的指示器。"true"/"false"。
-			"is_upgraded" : "", //指示 一个由于升级而被取消的交易。该字段仅在升级交易中存在。
-			"offer_code_ref_name" : "ef24vvg", //优惠代码名称。参考pending_renewal_info.offer_code_ref_name
-			"original_purchase_date" : "23", //ISO 8601格式的原始内购时间。
-			"original_purchase_date_ms" : "1234", //unix纪元格式的原始内购时间。对于自动续期订阅，该值指示订阅初次购买的时间。
-			"original_purchase_date_pst" : "", //太平洋时区的 原始购买时间。
-			"original_transaction_id" : "445", //原始交易标识符，参考pending_renewal_info.original_transaction_id
-			"product_id" : "com.meitu.myxj.autorenew.vip1", //已购产品的唯一标识符
-			"promotional_offer_id" : "423", //参考receipt.in_app.promotional_offer_id
-			"purchase_date" : "2020-06-02 07:27:54 Etc/GMT", //AppStore为购买或恢复产品在用户账户中收费的时间。格式类似于ISO 8601
-			"purchase_date_ms" : "1591082874000", //对于消耗，非消耗，非续期订阅，AppStore为已购或恢复产品在用户账户收费的时间。以unix纪元格式，毫秒为单位。对于续期产品，AppStore向用户账户收取购买时间或过一段时间后的续订时间。
-			"purchase_date_pst" : "2020-06-02 00:27:54 America/Los_Angeles"", //太平洋时间格式，AppStore收费时间。
-			"quantity" : "1", //消耗型产品购买的数量。最大值为10.
-			"subscription_group_identifier" : "14", //订阅所属群组的标识符
-			"transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
-			"web_order_line_item_id" : "235", // 跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
-		},
+            "cancellation_date" : "124", //ISO8601格式的取消一笔交易的时间。此字段仅适用于退款交易。
+            "cancellation_date_ms" : "1243", //Unix纪元时间格式，以毫秒为单位。取消交易时间，或者续订升级的时间。此字段仅适用于退款交易。
+            "cancellation_date_pst" : "124", //取消交易的太平洋时间。仅适用于退款交易
+            "cancellation_reason" : "1", //退款原因。1表示客户由于您应用的实际或感知问题而取消了交易；0表示其他原因，例如顾客意外购买。
+            "expires_date": "", //到期时间或续订时间。ISO 8601格式
+            "expires_date_ms" : "1345", //unix纪元时间格式的过期时间或续订时间，毫秒为单位。
+            "expires_date_pst" : "", //在太平洋时区的 过期时间或续订时间。
+            "is_in_intro_offer_period" : "true", //续订是否在推介促销优惠价格期间。"true"/"false"。
+            "is_trial_period" : "false", //订阅是否在免费试用期内的指示器。"true"/"false"。
+            "is_upgraded" : "", //指示 一个由于升级而被取消的交易。该字段仅在升级交易中存在。
+            "offer_code_ref_name" : "ef24vvg", //优惠代码名称。参考pending_renewal_info.offer_code_ref_name
+            "original_purchase_date" : "23", //ISO 8601格式的原始内购时间。
+            "original_purchase_date_ms" : "1234", //unix纪元格式的原始内购时间。对于自动续期订阅，该值指示订阅初次购买的时间。
+            "original_purchase_date_pst" : "", //太平洋时区的 原始购买时间。
+            "original_transaction_id" : "445", //原始交易标识符，参考pending_renewal_info.original_transaction_id
+            "product_id" : "com.meitu.myxj.autorenew.vip1", //已购产品的唯一标识符
+            "promotional_offer_id" : "423", //参考receipt.in_app.promotional_offer_id
+            "purchase_date" : "2020-06-02 07:27:54 Etc/GMT", //AppStore为购买或恢复产品在用户账户中收费的时间。格式类似于ISO 8601
+            "purchase_date_ms" : "1591082874000", //对于消耗，非消耗，非续期订阅，AppStore为已购或恢复产品在用户账户收费的时间。以unix纪元格式，毫秒为单位。对于续期产品，AppStore向用户账户收取购买时间或过一段时间后的续订时间。
+            "purchase_date_pst" : "2020-06-02 00:27:54 America/Los_Angeles"", //太平洋时间格式，AppStore收费时间。
+            "quantity" : "1", //消耗型产品购买的数量。最大值为10.
+            "subscription_group_identifier" : "14", //订阅所属群组的标识符
+            "transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
+            "web_order_line_item_id" : "235", // 跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
+        },
 	],
 	"pending_renewal_info" : [ //一个数组，每个元素包含有product_id标识的每个续订的待续订信息。仅针对包含自动续订的收据返回
 		{
