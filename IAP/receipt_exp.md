@@ -30,7 +30,7 @@
             "promotional_offer_id" : "423", //参考receipt.in_app.promotional_offer_id
             "purchase_date" : "2020-06-02 07:27:54 Etc/GMT", //AppStore为购买或恢复产品在用户账户中收费的时间。格式类似于ISO 8601
             "purchase_date_ms" : "1591082874000", //对于消耗，非消耗，非续期订阅，AppStore为已购或恢复产品在用户账户收费的时间。以unix纪元格式，毫秒为单位。对于续期产品，AppStore向用户账户收取购买时间或过一段时间后的续订时间。
-            "purchase_date_pst" : "2020-06-02 00:27:54 America/Los_Angeles"", //太平洋时间格式，AppStore收费时间。
+            "purchase_date_pst" : "2020-06-02 00:27:54 America/Los_Angeles", //太平洋时间格式，AppStore收费时间。
             "quantity" : "1", //消耗型产品购买的数量。最大值为10.
             "subscription_group_identifier" : "14", //订阅所属群组的标识符
             "transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
