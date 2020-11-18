@@ -78,3 +78,6 @@
 ```
 
 上述字段中`notification_type`的值，可能有多个，具体值，以及含义请查看[通知类型解释](noti_type_exp.md)
+
+上述字段的json表示，也可查看下图
+![](iap_server_noti_exp_img.png)
