@@ -4,7 +4,7 @@
 
 将服务器通知的格式，以及字段含义解释如下：
 
-```json
+```
 {
     "auto_renew_adam_id" : "435", //App Store Connect生成的标识符，AppStore使用该标识符来唯一标识用户订阅续订的续期订阅。将此值视为64位整数
     "auto_renew_product_id" : "com.meitu.myxj.autorenew.vip1",//用户续订的自动续期订阅的产品标识符
