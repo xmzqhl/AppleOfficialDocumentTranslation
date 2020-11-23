@@ -20,7 +20,7 @@
             "expires_date_pst" : "", //在太平洋时区的 过期时间或续订时间。
             "is_in_intro_offer_period" : "true", //续订是否在推介促销优惠价格期间。"true"/"false"。
             "is_trial_period" : "false", //订阅是否在免费试用期内的指示器。"true"/"false"。
-            "is_upgraded" : "", //指示 一个由于升级而被取消的交易。该字段仅在升级交易中存在。
+            "is_upgraded" : "true", //指示 一个由于升级而被取消的交易。该字段仅在升级交易中存在。值:true
             "offer_code_ref_name" : "ef24vvg", //优惠代码名称。参考pending_renewal_info.offer_code_ref_name
             "original_purchase_date" : "23", //ISO 8601格式的原始内购时间。
             "original_purchase_date_ms" : "1234", //unix纪元格式的原始内购时间。对于自动续期订阅，该值指示订阅初次购买的时间。
