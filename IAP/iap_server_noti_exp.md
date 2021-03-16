@@ -182,5 +182,5 @@
 
 有关促销优惠的更多信息，请参阅[在应用程序中实施促销优惠](https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers/implementing_promotional_offers_in_your_app)
 
-### 上述字段的json表示，也可查看下图(该图于2020-11-18提供，细节有差异)
+### 上述字段的json表示，也可查看下图
 ![](iap_server_noti_exp_img.png)
