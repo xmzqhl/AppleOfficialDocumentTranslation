@@ -38,7 +38,8 @@
             "subscription_group_identifier" : "14", //订阅所属群组的标识符。跟SKProduct的subscriptionGroupIdentifier一致
             "transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
             "web_order_line_item_id" : "235", // 跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
-        },...
+        },
+        ...
 	],
 	"pending_renewal_info" : [ //一个数组，每个元素包含有product_id标识的每个续订的待续订信息。仅针对包含自动续订的收据返回
 		{
@@ -54,12 +55,13 @@
 			"price_consent_status" : "1", //订阅涨价的同意状态。仅当通知顾客涨价后才显示该字段。默认值为0，如果顾客同意了，则改为"1".可能的值：1，0
 			"product_id" : "wnr", //已购产品的唯一标识符。
 			"promotional_offer_id" : "aa" //用户兑换的自动续期订阅的促销优惠标识符。在苹果后台创建促销优惠时，您在"促销优惠标识符"字段中提供了该值。
-		},...
+		},
+		...
 	],
 	"receipt" : { //被发送验证的收据的json表示。
 		"adam_id", 3245432, //参阅app_item_id.
 		"app_item_id" : 543213, //由App Store Connect生成，被AppStore使用来唯一标识应用购买。仅在生产环境中为app分配此标识符。将此值视为64位整数。
-		"application_version" : "3432", //应用版本号。注意是build号，并非常用的版本号。在生产环境中，该值是基于收据设备上应用的当前版本。沙盒下该值始终为"1.0"
+		"application_version" : "3432", //应用版本号。注意是build号，并非常用的版本号。在生产环境中，该值是基于receipt_creation_date_ms的设备上应用的当前版本。沙盒下该值始终为"1.0"
 		"bundle_id" : "com.meitu.myxj", //包名
 		"download_id" : 12424, //app下载交易的唯一标识符
 		"expiration_date" : "1234", //通过批量购买计划购买的应用购买收据的过期时间。格式类似于ISO 8601.
@@ -69,11 +71,11 @@
 		"original_purchase_date" : "", //原始应用购买时间，格式类似于ISO 8601.
 		"original_purchase_date_ms" : "",
 		"original_purchase_date_pst" : "",
-		"preorder_date" : "432", //用户预订的可用的 订购该app的时间
-		"preorder_date_ms" : "",
+		"preorder_date" : "432", //用户预订应用程序的时间。类似于ISO 8601的日期时间格式。
+		"preorder_date_ms" : "", //毫秒为单位。该字段仅在用户预订App时出现。使用该时间格式来处理日期。
 		"preorder_date_pst" : "",
 		"receipt_creation_date" : "34", //AppStore生成该收据的时间，以ISO 8601格式
-		"receipt_creation_date_ms" : "",
+		"receipt_creation_date_ms" : "", 
 		"receipt_creation_date_pst" : "",
 		"receipt_type" : "Production", //生成的收据的类型。该值对应购买时App或VPP的环境。可能的值为"Production"/"ProductionVPP"/"ProductionSandbox"/"ProductionVPPSandbox"
 		"request_date" : "", //到verifyReceipt的末端的请求被处理和响应被生成的时间。类似于ISO 8601格式。
@@ -85,7 +87,7 @@
                     "cancellation_date" : "1343", //苹果客户支持取消一个交易，或一个续订计划被升级的时间。以ISO 8601格式。该字段仅出现在退款交易
                     "cancellation_date_ms" : "1234",
                     "cancellation_date_pst" : "", //太平洋时间
-                    "cancellation_reason" : "1", // 退款交易的原因。1表示因为实际或app内感知问题而取消；0表示其他原因。
+                    "cancellation_reason" : "1", // 退款交易的原因。1表示因为实际或app内感知问题而取消；0表示其他原因。可能的值：1，0
                     "expires_date" : "", //订阅过期时间，或续订时间。以类似于ISO 8601格式。
                     "expires_date_ms" : "",
                     "expires_date_pst" : "",
@@ -94,7 +96,7 @@
                     "original_purchase_date" : "23", //原始应用内购买的时间。iso 8601格式
                     "original_purchase_date_ms" : "", //对于续期订阅，该值指示初次购买的时间。
                     "original_purchase_date_pst" : "", 
-                    "original_transaction_id" : "4453231", //原始交易标识符。使用此值来 将收据中的交易跟服务器通知事件匹配、管理自动续期订阅、标识在pending_renewal_info区域的订阅，当看到product_id的一个新original_transaction_id值时，将此视为新订阅、区分购买交易与恢复交易或续订交易，在购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配、 标识同一订阅的一个或多个续订。
+                    "original_transaction_id" : "4453231", //原始交易标识符。详细解释请查看下文。
                     "product_id" : "24", //已购产品的唯一标识符
                     "promotional_offer_id" : "34", //用户兑换的订阅优惠的标识符。使用此值来 确认订阅的销售来自促销优惠、确认用户兑换了哪种促销优惠、根据业务来跟踪用户已兑换的优惠以限制提供的折扣。
                     "purchase_date" : "421",//AppStore为购买或恢复产品从用户账户扣费的时间。或为订阅购买或一段时间后的续订的扣费时间。ISO 8601格式
@@ -103,7 +105,8 @@
                     "quantity" : "1", //购买的消耗型产品的数量。通常为1，最大值为10.
                     "transaction_id" : "134", //比如购买，恢复，续订交易的唯一标识符。你可以使用此值来1、管理你账户数据库中的订阅。为每个交易存储transaction_id、original_transaction_id和product_id来作为为每个用户交易记录的最佳的实践。每次订阅续订时或在新设备上恢复时，AppStore会生成一个新值；2、将购买的交易与一个恢复的或一个续订的交易区分开，在一个购买交易中，transaction_id始终与original_transaction_id匹配。对于订阅，它指示首次订阅购买。对于恢复或续订，transaction_id与original_transaction_id不匹配。如果用户多次恢复或续订相同的购买，则每次恢复或续订有一个不同的transaction_id。
                     "web_order_line_item_id" : "432", //跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
-                }
+                },
+                ...
         ],
 	},
 	"status" : 0 //收据有效时为0，或者当有错误发生的时候为一个状态码。状态码反应整个应用收据的状态。有关可能的状态码和说明，请查看下文
