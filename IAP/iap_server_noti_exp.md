@@ -49,24 +49,24 @@
 							                "transaction_id" : "1435", //购买、恢复、续订交易的唯一标识符
 							                "web_order_line_item_id" : "235", // 跨设备购买事件(包括订阅续订事件)的唯一标识符。此值是识别订阅购买的主键。
 						            },
-						            ...
-             ],
+						           ...
+               ],
 		"pending_renewal_info" : [ //一个数组，其中每个元素包含product_id中标识的每个自动续期的待续订信息。该数组的内容与验证收据响应中的pending_renewal_info内容相同。元素引用开放的自动续期订阅的续订或在过去失败的续订
-							            {
-							                "auto_renew_product_id" : "qwe", //当前续订的首选项。值是一个product_id。仅当用户降级或跨级一个不同时长的订阅才出现该字段。
-							                "auto_renew_status" : "1", //自动续期订阅的当前续订状态。 1：订阅将在当前订阅期结束时续订； 0：用户已关闭续订
-							                "expiration_intent" : "1", //仅对包含过期的，自动续期订阅的收据才显示此字段。 1:用户自愿取消订阅；2：账单错误，比如用户支付信息无效；3：用户不同意最近的涨价；4：续订时无法购买产品；5：未知错误
-							                "grace_period_expires_date" : "3435", //以ISO 8601的日期时间格式的 续订宽限期的到期时间，
-							                "grace_period_expires_date_ms" : "123", //以UNIX纪元时间格式的订阅宽限期的到期时间，以毫秒为单位。仅当App开启了账单宽限期且用户续订时发生错误，此字段才存在。使用此时间格式来处理日期。
-							                "grace_period_expires_date_pst" : "134", //宽限期到期时间，太平洋时区。
-							                "is_in_billing_retry_period" : "1", // 1:AppStore正尝试续订； 0:AppStore已停止尝试续订.仅当续订处于计费重试的状态时，才存在。
-							                "offer_code_ref_name" : "1fwg2", //苹果后台配置的优惠代码名称，当用户兑换优惠代码才显示该字段。 
-							                "original_transaction_id" : "1245", //参考receipt.in_app.original_transaction_id
-							                "price_consent_status" : "1", //订阅涨价的同意状态。仅当通知顾客涨价后才显示该字段。默认值为0，如果顾客同意了，则改为"1".
-							                "product_id" : "wnr", //已购产品的唯一标识符。
-			                		         "promotional_offer_id" : "" //用户兑换的自动续期订阅的促销优惠的标识符。你在苹果后台创建促销优惠时在促销优惠标识符字段中提供的该值。
-							            },
-							            ...
+						            {
+						                "auto_renew_product_id" : "qwe", //当前续订的首选项。值是一个product_id。仅当用户降级或跨级一个不同时长的订阅才出现该字段。
+						                "auto_renew_status" : "1", //自动续期订阅的当前续订状态。 1：订阅将在当前订阅期结束时续订； 0：用户已关闭续订
+						                "expiration_intent" : "1", //仅对包含过期的，自动续期订阅的收据才显示此字段。 1:用户自愿取消订阅；2：账单错误，比如用户支付信息无效；3：用户不同意最近的涨价；4：续订时无法购买产品；5：未知错误
+						                "grace_period_expires_date" : "3435", //以ISO 8601的日期时间格式的 续订宽限期的到期时间，
+						                "grace_period_expires_date_ms" : "123", //以UNIX纪元时间格式的订阅宽限期的到期时间，以毫秒为单位。仅当App开启了账单宽限期且用户续订时发生错误，此字段才存在。使用此时间格式来处理日期。
+						                "grace_period_expires_date_pst" : "134", //宽限期到期时间，太平洋时区。
+						                "is_in_billing_retry_period" : "1", // 1:AppStore正尝试续订； 0:AppStore已停止尝试续订.仅当续订处于计费重试的状态时，才存在。
+						                "offer_code_ref_name" : "1fwg2", //苹果后台配置的优惠代码名称，当用户兑换优惠代码才显示该字段。 
+						                "original_transaction_id" : "1245", //参考receipt.in_app.original_transaction_id
+						                "price_consent_status" : "1", //订阅涨价的同意状态。仅当通知顾客涨价后才显示该字段。默认值为0，如果顾客同意了，则改为"1".
+						                "product_id" : "wnr", //已购产品的唯一标识符。
+		                		          "promotional_offer_id" : "" //用户兑换的自动续期订阅的促销优惠的标识符。你在苹果后台创建促销优惠时在促销优惠标识符字段中提供的该值。
+						            },
+						            ...
 		    ],
 		"status" : 0 //状态码，0表示该通知是有效的
 	},
