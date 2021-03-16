@@ -16,7 +16,7 @@
    "auto_renew_status_change_date_pst" : "", //太平洋时间
    "environment" : "PROD", //AppStore生成收据的环境。可能的值：Sandbox, PROD
    "expiration_intent" : "", //订阅过期的原因。该字段仅在一个过期的自动续期订阅中显示。1：用户自愿取消；2：账单错误，比如用户支付信息无效；3：用户不同意涨价；4：续订时iap产品无效；5：未知错误
-     "notification_type" : "CANCEL", //触发该通知的订阅事件。具体值请查看下面的文档
+   "notification_type" : "CANCEL", //触发该通知的订阅事件。具体值请查看下面的文档
    "password" : "6543", //跟你在验证收据时请求里提交的共享密钥password字段相同。
    "unified_receipt" : { //包含有关app内最近的IAP交易信息的对象 
         "environment" : "Production", // AppStore生成收据的环境。可能的值：Sandbox, Production
@@ -99,31 +99,32 @@
   * 确定是否停止提供与购买相关的内容。
   
   * 检查任何最新的续订交易，这可能表明用户已经重新启用或者升级了他们的订阅以进行自动续期订阅的购买。
-  
+ 
         expiration_intent
-  订阅过期的原因。字符串
+        
+订阅过期的原因。字符串
   
-  可能的值：
+可能的值：
   
-  1、客户自愿取消订阅
+1、客户自愿取消订阅
   
-  2、 账单错误；例如，客户的付款信息不再有效。
+2、 账单错误；例如，客户的付款信息不再有效。
   
-  3、客户不同意最近的涨价
+3、客户不同意最近的涨价
   
-  4、续订时无法购买该产品
+4、续订时无法购买该产品
   
-  5、未知错误
+5、未知错误
   
-  该字段在json响应的responseBody.pending_renewal_info数组中返回。
+该字段在json响应的responseBody.pending_renewal_info数组中返回。
   
-  您可以使用该值执行以下操作：
+您可以使用该值执行以下操作：
   
-  * 如果值是"1"，则决定调查在您的系统上有一个账户的订阅者 或 显示相同群组中其他订阅产品。
+* 如果值是"1"，则决定调查在您的系统上有一个账户的订阅者 或 显示相同群组中其他订阅产品。
  
-  * 如果值是"2"，则决定显示相同或替代的订阅产品。因为用户没有注定选择退订。
+* 如果值是"2"，则决定显示相同或替代的订阅产品。因为用户没有注定选择退订。
  
-  * 如果值是"1"决定是否显示一个订阅优惠来赢回用户。
+* 如果值是"1"决定是否显示一个订阅优惠来赢回用户。
   
  有关更多指南，请参阅WWDC 2018的[工程订阅](https://developer.apple.com/videos/play/wwdc2018/705/)和[在你的App中实施促销优惠](https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers/implementing_promotional_offers_in_your_app?language=objc)
 
@@ -147,7 +148,7 @@
 
 * 如果该值为"1"，并且`expires_date`是过去的时间，实现账单宽限期来提升恢复。当一个订阅者处于计费重试状态时，宽限期是免费或限制订阅访问。有关更多信息，请参阅WWDC 2018的[工程订阅](https://developer.apple.com/videos/play/wwdc2018/705/)。
 
-```offer_code_ref_name```
+        offer_code_ref_name
 
 用户兑换订阅优惠代码的优惠参考名称。字符串。
 
@@ -163,7 +164,7 @@
 
 有关优惠和优惠代码的更多信息，请参阅[在您的应用中实施优惠代码](https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers/implementing_offer_codes_in_your_app)   
 
-```promotional_offer_id```
+    promotional_offer_id
 
 用户兑换的自动续期订阅的促销优惠的标识符。字符串类型。
 
