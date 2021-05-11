@@ -43,7 +43,7 @@
 	],
 	"pending_renewal_info" : [ //一个数组，每个元素包含有product_id标识的每个续订的待续订信息。仅针对包含自动续订的收据返回
 		{
-			"auto_renew_product_id" : "qwe", //当前续订的首选项。值是一个product_id。仅当用户降级或跨级一个不同时长的订阅才出现该字段。
+			"auto_renew_product_id" : "qwe", //该键值对应的值 与 顾客订阅的续订产品(SKPayment)的productIdentifier属性相对应
 			"auto_renew_status" : "1", // 1：订阅将在当前订阅期结束时续订； 0：用户已关闭续订
 			"expiration_intent" : "1", // 1:用户自愿取消订阅；2：账单错误，比如用户支付信息无效；3：用户不同意最近的涨价；4：续订时无法购买产品；5：未知错误
 			"grace_period_expires_date" : "3435", //以ISO 8601的日期时间格式的 续订宽限期的到期时间，
